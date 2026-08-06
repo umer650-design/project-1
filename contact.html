@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Contact — FINSOULS</title>
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="32x32" />
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://harisumer.me/project-1/finsoul-logof.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== FONTS ===== */
+    @font-face {
+      font-family: 'Versailles';
+      src: url('https://harisumer.me/project-1/jen-wagner-co-versailles-regular (1).ttf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Neue Montreal';
+      src: url('https://harisumer.me/project-1/NeueMontreal-Light.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== VARIABLES & RESETS ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary:#a37676;
+      --primary-dark:#570d29;
+      --dark:#0c102a;
+      --text:#fcfbfa;
+      --white:#fcfbfa;
+      --black:#0c102a;
+      --shadow:0 10px 25px rgba(0,0,0,0.4);
+      --slide-ease:cubic-bezier(0.25,0.46,0.45,0.94);
+      --color-border-dark:rgba(255,255,255,0.08);
+    }
+    html { font-size:62.5%; scroll-behavior:smooth; }
+    body {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+      letter-spacing:1px;
+      font-size:1.6rem;
+      line-height:1.75;
+      color:var(--text);
+      background:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; padding:0; margin:0; }
+    img { max-width:100%; display:block; height:auto; }
+    h1,h2,h3,h4,h5,h6 {
+      font-family:'Versailles',Georgia,'Times New Roman',serif;
+      font-weight:400;
+      color:var(--white);
+      line-height:1.2;
+    }
+    h1 { font-size:clamp(2.8rem,8vw,5.6rem); }
+    h2 { font-size:clamp(2.4rem,6vw,3.8rem); color:#fff; margin-bottom:35px !important; }
+    h3 { font-size:clamp(2rem,4vw,2.8rem); color:#c99aa3; }
+    p, .p, .paragraph, .text, .desc, .label, .stat .label, .faq-answer, .newsletter p, .footer .address p, .footer .bottom, .region-popup p {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+    }
+    p { margin-bottom:35px !important; }
+    .btn {
+      display:inline-block; padding:1.2rem 2.8rem;
+      background:rgba(163, 118, 118, 0.2);
+      border:1px solid rgba(122,81,81,0.25);
+      color:var(--white);
+      font-size:clamp(1.2rem,1.4vw,1.4rem);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.075em;
+      border-radius:8px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%);
+      border-color:rgba(122,81,81,0.9);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      transform:scale(1.03);
+      color:var(--text);
+    }
+    .btn-arrow {
+      display:inline-flex; align-items:center; gap:0.8rem; padding:1rem 2.4rem 1rem 1.6rem;
+      color:var(--white); font-weight:500;
+      transition:all 0.3s ease;
+      background:rgba(163, 118, 118, 0.2);
+      border-radius:10px;
+      border:1px solid rgba(122,81,81,0.25);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-arrow::after { content:"→"; font-size:1.8rem; transition:all 0.3s ease; }
+    .btn-arrow:hover { gap:1.2rem; background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); color:var(--text); }
+    .btn-arrow-white { color:var(--white); }
+    .btn-arrow-white:hover { color:var(--text); }
+    .btn-arrow-white:hover::after { color:var(--text); }
+    .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:transparent;
+      transition:background 0.4s ease, box-shadow 0.3s ease;
+    }
+    .header.scrolled { background:var(--dark) !important; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
+    .header-main {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.8rem 2rem;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+    .logo-wrap {
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+      flex-shrink:0;
+    }
+    .logo-img { height:clamp(2.8rem,4vw,4.2rem); width:auto; }
+    .logo-text {
+      font-family:'Versailles',Georgia,serif;
+      font-size:clamp(2.4rem,4vw,3.6rem);
+      font-weight:400;
+      color:var(--white);
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      line-height:1;
+      transition:color 0.3s ease;
+    }
+    .logo-text span { color:var(--primary); }
+    .header.scrolled .logo-text { color:var(--white); }
+    .header.scrolled .logo-text span { color:var(--primary); }
+
+    .nav-menu {
+      display:flex;
+      align-items:center;
+      gap:clamp(1.2rem,2.5vw,2.4rem);
+      flex:1;
+      justify-content:center;
+      margin:0 2rem 0 11rem;
+    }
+    .nav-menu a {
+      font-size: clamp(1.4rem, 1.6vw, 1.8rem);
+      font-weight:500;
+      color:var(--white);
+      transition:color 0.25s ease, border-color 0.25s ease;
+      padding:0.4rem 0;
+      border-bottom:2px solid transparent;  
+      white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+    .right-group {
+      display:flex;
+      align-items:center;
+      gap:clamp(1rem,1.5vw,2rem);
+      flex-shrink:0;
+    }
+    .nav-menu .btn {
+      padding:0.6rem 1.6rem;
+      font-size:clamp(1rem,1.2vw,1.2rem);
+      color:var(--white);
+      white-space:nowrap;
+      border:1px solid rgba(122,81,81,0.2);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+      margin-left:0.4rem;
+    }
+    .nav-menu .btn:hover {
+      background:rgba(122,81,81,0.95);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      color:var(--text);
+      border-color:rgba(122,81,81,0.9);
+    }
+
+    .mobile-right-group {
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+    }
+
+    .region-selector { position:relative; display:inline-block; cursor:pointer; }
+    .region-selector .selected-region {
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.4rem 1rem 0.4rem 0.6rem;
+      border-radius:30px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:background 0.2s, border-color 0.2s;
+      font-size:clamp(1.1rem,1.2vw,1.3rem);
+      font-weight:500;
+      color:var(--white);
+      line-height:1.4;
+    }
+    .region-selector .selected-region:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); }
+    .region-selector .selected-region .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .region-selector .selected-region .flag-icon img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .region-selector .selected-region .arrow-down { font-size:1.2rem; opacity:0.6; transition:transform 0.25s ease; margin-left:0.2rem; }
+    .region-selector .selected-region .arrow-down.open { transform:rotate(180deg); }
+    .region-selector .dropdown-list {
+      position:absolute; top:calc(100% + 8px); right:0; min-width:200px;
+      background:rgba(23,28,48,0.96); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.6);
+      padding:0.6rem 0; opacity:0; visibility:hidden;
+      transform:translateY(-6px); transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index:1200; backdrop-filter:blur(8px);
+    }
+    .region-selector .dropdown-list.open { opacity:1; visibility:visible; transform:translateY(0); }
+    .region-selector .dropdown-item {
+      display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1.4rem;
+      color:var(--white); font-size:clamp(1.2rem,1.3vw,1.4rem);
+      transition:background 0.15s; cursor:pointer; border:none;
+      background:transparent; width:100%; text-align:left; font-family:inherit;
+    }
+    .region-selector .dropdown-item:hover { background:rgba(122,81,81,0.15); color:var(--primary); }
+    .region-selector .dropdown-item .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .region-selector .dropdown-item .flag-icon img { width:100%; height:100%; object-fit:cover; }
+
+    .hamburger { display:none; flex-direction:column; gap:0.4rem; cursor:pointer; padding:0.4rem; background:none; border:none; }
+    .hamburger span { display:block; width:2.8rem; height:2px; background:var(--white); transition:all 0.3s ease; }
+
+    @media (max-width:1024px) {
+      .nav-menu {
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:var(--dark);
+        padding:2rem;
+        box-shadow:var(--shadow);
+        gap:1.2rem;
+        border-top:1px solid rgba(255,255,255,0.05);
+        align-items:stretch;
+        margin:0;
+      }
+      .nav-menu.open { display:flex; }
+      .hamburger { display:flex; }
+      .nav-menu a {
+        color:var(--white) !important;
+        white-space:normal;
+        padding:0.8rem 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+        text-align:center;
+      }
+      .nav-menu a:hover { color:var(--primary) !important; border-bottom-color:var(--primary) !important; }
+      .nav-menu .btn { width:100%; text-align:center; }
+      .nav-menu .region-selector { display:none !important; }
+      .header-main .region-selector { display:inline-block; }
+      .right-group { display:none; }
+    }
+    @media (min-width:1025px) {
+      #regionSelectorMobile { display:none !important; }
+      .nav-menu .region-selector { display:inline-block !important; }
+      .mobile-right-group .region-selector { display:none !important; }
+    }
+
+    /* ===== Singapore Coming Soon Popup ===== */
+    .singapore-popup-overlay {
+      position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.5s ease;
+    }
+    .singapore-popup-overlay.active { opacity:1; pointer-events:auto; }
+    .singapore-popup {
+      background:var(--dark); border:1px solid var(--color-border-dark); border-radius:20px; padding:3.2rem 2.8rem; max-width:420px; width:92%; box-shadow:0 25px 50px rgba(0,0,0,0.8); transform:scale(0.95) translateY(20px); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease; opacity:0; text-align:center; position:relative;
+    }
+    .singapore-popup-overlay.active .singapore-popup { transform:scale(1) translateY(0); opacity:1; }
+    .singapore-popup h2 { font-family:'Versailles',Georgia,serif; font-size:clamp(2.2rem,3.5vw,3rem); font-weight:400; color:var(--text); margin:0 0 0.2rem 0; }
+    .singapore-popup .popup-sub { font-family:'Neue Montreal','Inter',Arial,sans-serif; font-size:clamp(1.3rem,1.6vw,1.6rem); color:rgba(252,251,250,0.65); margin-top:0.4rem; margin-bottom:1.6rem; }
+    .singapore-popup .popup-close-x { position:absolute; top:1.2rem; right:1.6rem; background:transparent; border:none; color:rgba(255,255,255,0.4); font-size:2.4rem; cursor:pointer; transition:color 0.2s, transform 0.2s; font-family:inherit; line-height:1; padding:0.4rem; z-index:10; }
+    .singapore-popup .popup-close-x:hover { color:var(--white); transform:rotate(90deg); }
+    .singapore-popup .popup-btn { margin-top:1.6rem; display:inline-block; padding:0.8rem 2.4rem; background:rgba(163, 118, 118, 0.2); border:1px solid rgba(122,81,81,0.25); border-radius:8px; color:var(--white); font-size:1.4rem; cursor:pointer; transition:all 0.3s ease; }
+    .singapore-popup .popup-btn:hover { background:rgba(122,81,81,0.95); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding:clamp(2rem,5vh,5rem) 0;
+      color:rgba(255,255,255,0.8);
+      background:var(--dark);
+      position:relative;
+      z-index:10;
+    }
+    .footer .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+    .footer .grid { display:grid; grid-template-columns:1fr 2fr; gap:clamp(2rem,4vw,4rem); margin-bottom:3rem; }
+    .footer .logo-text { font-family:'Versailles',Georgia,serif; font-size:clamp(2.4rem,4vw,3.6rem); font-weight:400; color:var(--white); letter-spacing:0.1em; text-transform:uppercase; }
+    .footer .logo-text span { color:var(--primary); }
+    .footer .address p { font-size:clamp(1.2rem,1.4vw,1.4rem); margin-bottom:0.4rem !important; color:rgba(255,255,255,0.8); }
+    .footer .address a { color:var(--primary); }
+    .footer .right { display:flex; flex-direction:column; align-items:flex-end; gap:2rem; }
+    .footer .social-links { display:flex; gap:1.2rem; }
+    .footer .social-links a { font-size:clamp(1.8rem,2.2vw,2.2rem); padding:0.4rem; transition:all 0.3s ease; color:rgba(255,255,255,0.7); }
+    .footer .social-links a:hover { color:var(--primary); }
+    .footer .footer-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:1rem 2.5rem; font-size:clamp(1rem,1.2vw,1.2rem); }
+    .footer .footer-links a { transition:all 0.3s ease; color:rgba(255,255,255,0.6); }
+    .footer .footer-links a:hover, .footer .footer-links a.active { color:var(--white); }
+    .footer .bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:clamp(1rem,1.2vw,1.2rem); color:rgba(255,255,255,0.5); }
+    @media (max-width:768px) {
+      .footer .grid { grid-template-columns:1fr; gap:2rem; }
+      .footer .right { align-items:flex-start; }
+      .footer .footer-links { justify-content:flex-start; }
+      .footer .bottom { flex-direction:column; align-items:flex-start; }
+    }
+
+    /* ===== CONTACT PAGE SPECIFIC ===== */
+
+    /* HERO */
+    .hero-slide {
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:0;
+      overflow:hidden;
+      background:var(--dark);
+    }
+    .hero-bg-image {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:0;
+      background-image:url('https://harisumer.me/project-1/TvHo1.jpg');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    .hero-overlay-bg {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:1;
+      background: linear-gradient(135deg, rgba(23,28,48,0.92) 44%, rgba(122,81,81,0.85) 100%);
+      pointer-events:none;
+    }
+    .hero-overlay {
+      position:relative;
+      z-index:2;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      flex-direction:column;
+      gap:12px;
+      pointer-events:none;
+      color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,0.8);
+      padding:10rem 3rem 3rem 3rem;
+      bottom:0;
+      align-items:flex-start;
+    }
+    .hero-overlay h1 {
+      font-weight:400;
+      font-size:clamp(2.8rem,8vw,5.6rem);
+      max-width:65%;
+    }
+    .hero-overlay h1 strong {
+      font-weight:700;
+      color:var(--primary);
+    }
+    .hero-overlay p {
+      font-size:clamp(1.6rem,2vw,2rem);
+      opacity:0.9;
+      max-width:600px;
+      color:#fff;
+      margin-bottom:35px !important;
+    }
+
+    /* CONTACT FORM */
+    .contact-section {
+      padding: 12rem 0 8rem;
+      background: var(--dark);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-grid .left-col h1 {
+      font-size: clamp(3rem,5vw,4.2rem);
+      margin-bottom: 1.2rem;
+    }
+    .contact-grid .left-col p {
+      color: rgba(252,251,250,0.62);
+      font-size: 1.6rem;
+      max-width: 500px;
+    }
+    .contact-grid .calendar-column h3 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      color: var(--white);
+      font-family:'Versailles',Georgia,serif;
+    }
+    .contact-grid .calendar-column h3 span { color: var(--primary); }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+    .form__row {
+      display: flex;
+      gap: 2rem;
+    }
+    @media (max-width:768px) {
+      .form__row { flex-direction: column; gap: 1.6rem; }
+    }
+    .form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+    .form__field--full { width: 100%; }
+    .form__label {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+    .form__required { color: #e74c3c; margin-left: 0.2rem; }
+    .form__input {
+      height: 4.8rem;
+      padding: 0 1.8rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      font-family: inherit;
+      width: 100%;
+      letter-spacing:1px;
+    }
+    .form__input::placeholder { color: rgba(255,255,255,0.3); }
+    .form__input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(122,81,81,0.15);
+    }
+    .form__input--error { border-color: #e74c3c; }
+    .form__error {
+      font-size: 1.2rem;
+      color: #e74c3c;
+      min-height: 2rem;
+    }
+    .form__disclaimer {
+      font-size: 1.2rem;
+      color: rgba(252,251,250,0.4);
+      line-height: 1.5;
+    }
+    .form__disclaimer a { color: var(--primary); text-decoration: underline; }
+    .form__disclaimer a:hover { opacity: 0.8; }
+    .form .btn-gold {
+      width: 100%;
+      justify-content: center;
+      padding: 1.4rem;
+      font-size: 1.4rem;
+      background:rgba(163,118,118,0.2);
+      border:1px solid rgba(122,81,81,0.25);
+      color:var(--white);
+      border-radius:8px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+      cursor:pointer;
+      transition:all 0.3s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:0.9rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+    .form .btn-gold:hover {
+      background:radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%);
+      border-color:rgba(122,81,81,0.9);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      transform:scale(1.02);
+      color:var(--text);
+    }
+    .form .btn-gold::after { content:'→'; font-size:1.6rem; transition:transform 0.35s var(--slide-ease); }
+    .form .btn-gold:hover::after { transform:translateX(4px); }
+
+    .calendly-inline-widget {
+      min-width: 320px;
+      height: 580px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    @media (max-width:900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .calendly-inline-widget { height: 500px; }
+    }
+    @media (max-width:480px) {
+      .calendly-inline-widget { height: 460px; min-width: unset; }
+      .contact-section { padding:8rem 0 4rem; }
+      .hero-overlay { padding:8rem 1.5rem 2rem 1.5rem !important; align-items:center !important; text-align:center !important; }
+      .hero-overlay h1 { max-width:100% !important; font-size:3.2rem !important; }
+      .hero-overlay p { max-width:100% !important; font-size:1.6rem !important; }
+      .contact-grid .left-col { text-align:center; }
+      .contact-grid .left-col p { max-width:100%; }
+      .footer .grid { text-align:center; }
+      .footer .right { align-items:center; }
+      .footer .footer-links { justify-content:center; }
+      .header-main { padding:0.6rem 1.2rem; }
+      .logo-img { height:2.8rem !important; }
+      .logo-text { font-size:2rem !important; }
+    }
+
+    .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s var(--slide-ease), transform 0.8s var(--slide-ease); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; transition:none !important; } }
+
+    .btn-gold{ display:inline-flex; align-items:center; gap:0.9rem; padding:1.2rem 2.6rem; background:rgba(163,118,118,0.2); border:1px solid rgba(122,81,81,0.25); color:var(--text); font-size:1.3rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; border-radius:10px; cursor:pointer; transition:all 0.35s var(--slide-ease); }
+    .btn-gold::after{ content:'→'; font-size:1.6rem; transition:transform 0.35s var(--slide-ease); }
+    .btn-gold:hover{ background:radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); color:var(--text); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+    .btn-gold:hover::after{ transform:translateX(4px); }
+  </style>
+</head>
+<body>
+
+  <!-- Singapore Coming Soon Popup -->
+  <div class="singapore-popup-overlay" id="singaporePopup">
+    <div class="singapore-popup">
+      <button class="popup-close-x" id="singaporePopupClose" aria-label="Close">✕</button>
+      <h2 style="margin-top:10px;">Singapore is coming soon. Stay tuned for our launch!</h2>
+      <button class="popup-btn" id="singaporePopupBtn">Got it</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <a href="#" class="logo-wrap" id="logoLink">
+        <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" class="logo-img" />
+        <span class="logo-text">FINSOULS</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="https://harisumer.me/project-1/">Home</a>
+        <a href="/project-1/about">About us</a>
+        <a href="/project-1/finsouls-services">Services</a>
+        <a href="/project-1/insights">Insights</a>
+        <a href="#" class="active">Contact</a>
+      </nav>
+
+      <div class="right-group">
+        <div class="region-selector" id="regionSelectorDesktop">
+          <div class="selected-region" id="selectedRegionDesktop">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowDesktop">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownDesktop">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <a href="#" class="btn">Book a Consultant</a>
+      </div>
+
+      <div class="mobile-right-group">
+        <div class="region-selector" id="regionSelectorMobile">
+          <div class="selected-region" id="selectedRegionMobile">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowMobile">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownMobile">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- CONTACT FORM -->
+  <section class="contact-section" id="contactFormSection">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="left-col reveal">
+          <h1>Get in touch</h1>
+          <p>Fill out the form and our team will get back to you within 24 hours. For urgent matters, call us directly.</p>
+          <div style="margin-top:2.4rem;">
+            <p style="font-size:1.4rem; color:rgba(252,251,250,0.62);"><strong style="color:var(--white);">Phone:</strong> +971 52 449 4542</p>
+            <p style="font-size:1.4rem; color:rgba(252,251,250,0.62);"><strong style="color:var(--white);">Email:</strong> <a href="mailto:info@finsouls.com" style="color:var(--primary);">info@finsouls.com</a></p>
+            <p style="font-size:1.4rem; color:rgba(252,251,250,0.62);"><strong style="color:var(--white);">Office:</strong> Business Bay, Dubai, UAE</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="calendar-column reveal">
+          <form class="form" id="contactForm" novalidate>
+            <div class="form__row">
+              <div class="form__field">
+                <label class="form__label" for="firstName">First Name <span class="form__required">*</span></label>
+                <input type="text" id="firstName" name="firstName" class="form__input" placeholder="Enter your first name" required data-error-message="First name is required">
+                <span class="form__error" data-field-error></span>
+              </div>
+              <div class="form__field">
+                <label class="form__label" for="lastName">Last Name <span class="form__required">*</span></label>
+                <input type="text" id="lastName" name="lastName" class="form__input" placeholder="Enter your last name" required data-error-message="Last name is required">
+                <span class="form__error" data-field-error></span>
+              </div>
+            </div>
+            <div class="form__field form__field--full">
+              <label class="form__label" for="companyName">Company Name <span class="form__required">*</span></label>
+              <input type="text" id="companyName" name="companyName" class="form__input" placeholder="Enter your company name" required data-error-message="Company name is required">
+              <span class="form__error" data-field-error></span>
+            </div>
+            <div class="form__field form__field--full">
+              <label class="form__label" for="workEmail">Work Email <span class="form__required">*</span></label>
+              <input type="email" id="workEmail" name="workEmail" class="form__input" placeholder="Enter your work email" required data-error-message="A valid work email is required">
+              <span class="form__error" data-field-error></span>
+            </div>
+            <div class="form__field form__field--full">
+              <label class="form__label" for="contactNumber">Contact Number</label>
+              <input type="tel" id="contactNumber" name="contactNumber" class="form__input" placeholder="Enter your phone number">
+              <span class="form__error" data-field-error></span>
+            </div>
+            <div class="form__field form__field--full">
+              <label class="form__label" for="message">How can we help? <span class="form__required">*</span></label>
+              <input type="text" id="message" name="message" class="form__input" placeholder="Brief description of your need" required data-error-message="Please describe your inquiry">
+              <span class="form__error" data-field-error></span>
+            </div>
+            <div class="form__field">
+              <p class="form__disclaimer">By submitting, you agree that FINSOULS collects the information in this form to respond to your inquiry. We do not sell or share it for advertising. See our <a href="/privacy-policy#privacy-policy">Privacy Policy</a>.</p>
+            </div>
+            <button type="submit" class="btn-gold">
+              <span>Send message</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="grid">
+        <div class="left">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
+            <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" style="height:clamp(3.2rem,4.8vw,5rem); width:auto;" />
+            <span class="logo-text">FINSOULS</span>
+          </div>
+    
+          <div class="address">
+            <p id="footerAddress1">Business Bay Dubai UAE</p>
+            <p><strong id="footerPhone">+971 52 449 4542</strong></p>
+            <p><a href="mailto:info@finsouls.com" style="color:rgba(255, 255, 255, 0.8);" id="footerEmail">info@finsouls.com</a></p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+          <div class="footer-links">
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy">Contacts &amp; Offices</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#terms-conditions">Terms &amp; Conditions</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#cookie-policy">Cookies Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy" class="active">Privacy Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#sitemap">Sitemap</a>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 FINSOULS | Planning &amp; Guidance. All Rights Reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // HEADER SCROLL
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 20) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // MOBILE MENU
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+      navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+      // REVEAL ON SCROLL
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(el => io.observe(el));
+
+      // SINGAPORE POPUP
+      const singaporePopup = document.getElementById('singaporePopup');
+      function showSingaporePopup() {
+        singaporePopup.classList.add('active');
+      }
+      function hideSingaporePopup() {
+        singaporePopup.classList.remove('active');
+      }
+      document.getElementById('singaporePopupClose').addEventListener('click', hideSingaporePopup);
+      document.getElementById('singaporePopupBtn').addEventListener('click', hideSingaporePopup);
+      singaporePopup.addEventListener('click', function(e) { if (e.target === this) hideSingaporePopup(); });
+
+      // REGION SELECTOR with Singapore popup
+      const FLAG_MAP = {
+        'Global': 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg',
+        'UAE': 'https://flagcdn.com/w40/ae.png',
+        'Pakistan': 'https://flagcdn.com/w40/pk.png',
+        'Portugal': 'https://flagcdn.com/w40/pt.png',
+        'Singapore': 'https://flagcdn.com/w40/sg.png'
+      };
+      function getFlag(region) { return FLAG_MAP[region] || FLAG_MAP['Global']; }
+
+      function setupRegionSelector(selectorId, selectedId, dropdownId, arrowId) {
+        const selector = document.getElementById(selectorId);
+        if (!selector) return;
+        const selected = document.getElementById(selectedId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+        const items = dropdown.querySelectorAll('.dropdown-item');
+
+        selected.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+          if (arrow) arrow.classList.toggle('open');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const label = this.dataset.label;
+            const flag = this.dataset.flag || getFlag(label);
+            
+            if (label === 'Singapore') {
+              showSingaporePopup();
+              const globalFlag = getFlag('Global');
+              selected.innerHTML = `<span class="flag-icon"><img src="${globalFlag}" alt="Global" /></span><span>Global</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+              document.getElementById(arrowId).classList.remove('open');
+              dropdown.classList.remove('open');
+              return;
+            }
+            
+            selected.innerHTML = `<span class="flag-icon"><img src="${flag}" alt="${label}" /></span><span>${label}</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+            document.getElementById(arrowId).classList.remove('open');
+            dropdown.classList.remove('open');
+            items.forEach(d => d.style.background = 'transparent');
+            this.style.background = 'rgba(122,81,81,0.15)';
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!selector.contains(e.target)) {
+            dropdown.classList.remove('open');
+            const arrowEl = document.getElementById(arrowId);
+            if (arrowEl) arrowEl.classList.remove('open');
+          }
+        });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+      }
+
+      setupRegionSelector('regionSelectorMobile', 'selectedRegionMobile', 'regionDropdownMobile', 'regionArrowMobile');
+      setupRegionSelector('regionSelectorDesktop', 'selectedRegionDesktop', 'regionDropdownDesktop', 'regionArrowDesktop');
+
+      // FORM VALIDATION
+      const form = document.getElementById('contactForm');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function showError(input, message) {
+        input.classList.add('form__input--error');
+        const errorEl = input.closest('.form__field').querySelector('[data-field-error]');
+        if (errorEl) errorEl.textContent = message || 'This field is required';
+      }
+      function clearError(input) {
+        input.classList.remove('form__input--error');
+        const errorEl = input.closest('.form__field').querySelector('[data-field-error]');
+        if (errorEl) errorEl.textContent = '';
+      }
+      function validateField(input) {
+        const value = input.value.trim();
+        const isRequired = input.hasAttribute('required');
+        const type = input.type;
+        if (isRequired && !value) {
+          showError(input, input.dataset.errorMessage || 'This field is required');
+          return false;
+        }
+        if (type === 'email' && value && !emailRegex.test(value)) {
+          showError(input, 'Please enter a valid email address');
+          return false;
+        }
+        clearError(input);
+        return true;
+      }
+
+      form.querySelectorAll('.form__input').forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('focus', () => clearError(input));
+        input.addEventListener('input', () => {
+          if (input.classList.contains('form__input--error')) validateField(input);
+        });
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+        const inputs = form.querySelectorAll('.form__input');
+        inputs.forEach(input => {
+          if (!validateField(input)) isValid = false;
+        });
+        if (!isValid) {
+          const firstError = form.querySelector('.form__input--error');
+          if (firstError) firstError.focus();
+          return;
+        }
+        const btn = form.querySelector('.btn-gold');
+        const orig = btn.innerHTML;
+        btn.innerHTML = 'Sending...';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.innerHTML = '✓ Sent!';
+          setTimeout(() => {
+            btn.innerHTML = orig;
+            btn.disabled = false;
+            form.reset();
+          }, 2000);
+        }, 1200);
+      });
+    })();
+  </script>
+</body>
+</html>

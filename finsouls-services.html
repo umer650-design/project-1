@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Services — FINSOULS</title>
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="32x32" />
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://harisumer.me/project-1/finsoul-logof.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== FONTS ===== */
+    @font-face {
+      font-family: 'Versailles';
+      src: url('https://harisumer.me/project-1/jen-wagner-co-versailles-regular (1).ttf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Neue Montreal';
+      src: url('https://harisumer.me/project-1/NeueMontreal-Light.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== VARIABLES & RESETS ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary:#a37676;
+      --primary-dark:#570d29;
+      --dark:#0c102a;
+      --text:#fcfbfa;
+      --white:#fcfbfa;
+      --black:#0c102a;
+      --shadow:0 10px 25px rgba(0,0,0,0.4);
+      --slide-ease:cubic-bezier(0.25,0.46,0.45,0.94);
+      --color-border-dark:rgba(255,255,255,0.08);
+    }
+    html { 
+      font-size:62.5%; 
+      scroll-behavior:smooth; 
+    }
+    body {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+      letter-spacing:1px;
+      font-size:1.6rem;
+      line-height:1.75;
+      color:var(--text);
+      background:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; padding:0; margin:0; }
+    img { max-width:100%; display:block; height:auto; }
+    h1,h2,h3,h4,h5,h6 {
+      font-family:'Versailles',Georgia,'Times New Roman',serif;
+      font-weight:400;
+      color:var(--white);
+      line-height:1.2;
+    }
+    h1 { font-size:clamp(2.8rem,8vw,5.6rem); }
+    h2 { font-size:clamp(2.4rem,6vw,3.8rem); color:#fff; margin-bottom:35px !important; }
+    h3 { font-size:clamp(2rem,4vw,2.8rem); color:#c99aa3; }
+    p, .p, .paragraph, .text, .desc, .label, .stat .label, .faq-answer, .newsletter p, .footer .address p, .footer .bottom, .region-popup p {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+    }
+    p { margin-bottom:35px !important; width: 450px !important;}
+    .btn {
+      display:inline-block; padding:1.2rem 2.8rem;
+      background:rgba(163, 118, 118, 0.2);
+      border:1px solid rgba(122,81,81,0.25);
+      color:var(--white);
+      font-size:clamp(1.2rem,1.4vw,1.4rem);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.075em;
+      border-radius:8px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%);
+      border-color:rgba(122,81,81,0.9);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      transform:scale(1.03);
+      color:var(--text);
+    }
+    .btn-arrow {
+      display:inline-flex; align-items:center; gap:0.8rem; padding:1rem 2.4rem 1rem 1.6rem;
+      color:var(--white); font-weight:500;
+      transition:all 0.3s ease;
+      background:rgba(163, 118, 118, 0.2);
+      border-radius:10px;
+      border:1px solid rgba(122,81,81,0.25);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-arrow::after { content:"→"; font-size:1.8rem; transition:all 0.3s ease; }
+    .btn-arrow:hover { gap:1.2rem; background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); color:var(--text); }
+    .btn-arrow-white { color:var(--white); }
+    .btn-arrow-white:hover { color:var(--text); }
+    .btn-arrow-white:hover::after { color:var(--text); }
+    .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:transparent;
+      transition:background 0.4s ease, box-shadow 0.3s ease;
+    }
+    .header.scrolled { background:var(--dark) !important; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
+    .header-main {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.8rem 2rem;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+    .logo-wrap {
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+      flex-shrink:0;
+    }
+    .logo-img { height:clamp(2.8rem,4vw,4.2rem); width:auto; }
+    .logo-text {
+      font-family:'Versailles',Georgia,serif;
+      font-size:clamp(2.4rem,4vw,3.6rem);
+      font-weight:400;
+      color:var(--white);
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      line-height:1;
+      transition:color 0.3s ease;
+    }
+    .logo-text span { color:var(--primary); }
+    .header.scrolled .logo-text { color:var(--white); }
+    .header.scrolled .logo-text span { color:var(--primary); }
+
+    .nav-menu {
+      display:flex;
+      align-items:center;
+      gap:clamp(1.2rem,2.5vw,2.4rem);
+      flex:1;
+      justify-content:center;
+      margin:0 2rem 0 11rem;
+    }
+    .nav-menu a {
+      font-size: clamp(1.4rem, 1.6vw, 1.8rem);
+      font-weight:500;
+      color:var(--white);
+      transition:color 0.25s ease, border-color 0.25s ease;
+      padding:0.4rem 0;
+      border-bottom:2px solid transparent;  
+      white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+    .right-group {
+      display:flex;
+      align-items:center;
+      gap:clamp(1rem,1.5vw,2rem);
+      flex-shrink:0;
+    }
+    .nav-menu .btn {
+      padding:0.6rem 1.6rem;
+      font-size:clamp(1rem,1.2vw,1.2rem);
+      color:var(--white);
+      white-space:nowrap;
+      border:1px solid rgba(122,81,81,0.2);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+      margin-left:0.4rem;
+    }
+    .nav-menu .btn:hover {
+      background:rgba(122,81,81,0.95);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      color:var(--text);
+      border-color:rgba(122,81,81,0.9);
+    }
+
+    .mobile-right-group {
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+    }
+
+    .region-selector { position:relative; display:inline-block; cursor:pointer; }
+    .region-selector .selected-region {
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.4rem 1rem 0.4rem 0.6rem;
+      border-radius:30px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:background 0.2s, border-color 0.2s;
+      font-size:clamp(1.1rem,1.2vw,1.3rem);
+      font-weight:500;
+      color:var(--white);
+      line-height:1.4;
+    }
+    .region-selector .selected-region:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); }
+    .region-selector .selected-region .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .region-selector .selected-region .flag-icon img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .region-selector .selected-region .arrow-down { font-size:1.2rem; opacity:0.6; transition:transform 0.25s ease; margin-left:0.2rem; }
+    .region-selector .selected-region .arrow-down.open { transform:rotate(180deg); }
+    .region-selector .dropdown-list {
+      position:absolute; top:calc(100% + 8px); right:0; min-width:200px;
+      background:rgba(23,28,48,0.96); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.6);
+      padding:0.6rem 0; opacity:0; visibility:hidden;
+      transform:translateY(-6px); transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index:1200; backdrop-filter:blur(8px);
+    }
+    .region-selector .dropdown-list.open { opacity:1; visibility:visible; transform:translateY(0); }
+    .region-selector .dropdown-item {
+      display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1.4rem;
+      color:var(--white); font-size:clamp(1.2rem,1.3vw,1.4rem);
+      transition:background 0.15s; cursor:pointer; border:none;
+      background:transparent; width:100%; text-align:left; font-family:inherit;
+    }
+    .region-selector .dropdown-item:hover { background:rgba(122,81,81,0.15); color:var(--primary); }
+    .region-selector .dropdown-item .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .region-selector .dropdown-item .flag-icon img { width:100%; height:100%; object-fit:cover; }
+
+    .hamburger { display:none; flex-direction:column; gap:0.4rem; cursor:pointer; padding:0.4rem; background:none; border:none; }
+    .hamburger span { display:block; width:2.8rem; height:2px; background:var(--white); transition:all 0.3s ease; }
+
+    @media (max-width:1024px) {
+      .nav-menu {
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:var(--dark);
+        padding:2rem;
+        box-shadow:var(--shadow);
+        gap:1.2rem;
+        border-top:1px solid rgba(255,255,255,0.05);
+        align-items:stretch;
+        margin:0;
+      }
+      .nav-menu.open { display:flex; }
+      .hamburger { display:flex; }
+      .nav-menu a {
+        color:var(--white) !important;
+        white-space:normal;
+        padding:0.8rem 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+        text-align:center;
+      }
+      .nav-menu a:hover { color:var(--primary) !important; border-bottom-color:var(--primary) !important; }
+      .nav-menu .btn { width:100%; text-align:center; }
+      .nav-menu .region-selector { display:none !important; }
+      .header-main .region-selector { display:inline-block; }
+      .right-group { display:none; }
+    }
+    @media (min-width:1025px) {
+      #regionSelectorMobile { display:none !important; }
+      .nav-menu .region-selector { display:inline-block !important; }
+      .mobile-right-group .region-selector { display:none !important; }
+    }
+
+    /* ===== Singapore Coming Soon Popup ===== */
+    .singapore-popup-overlay {
+      position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.5s ease;
+    }
+    .singapore-popup-overlay.active { opacity:1; pointer-events:auto; }
+    .singapore-popup {
+      background:var(--dark); border:1px solid var(--color-border-dark); border-radius:20px; padding:3.2rem 2.8rem; max-width:420px; width:92%; box-shadow:0 25px 50px rgba(0,0,0,0.8); transform:scale(0.95) translateY(20px); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease; opacity:0; text-align:center; position:relative;
+    }
+    .singapore-popup-overlay.active .singapore-popup { transform:scale(1) translateY(0); opacity:1; }
+    .singapore-popup h2 { font-family:'Versailles',Georgia,serif; font-size:clamp(2.2rem,3.5vw,3rem); font-weight:400; color:var(--text); margin:0 0 0.2rem 0; }
+    .singapore-popup .popup-sub { font-family:'Neue Montreal','Inter',Arial,sans-serif; font-size:clamp(1.3rem,1.6vw,1.6rem); color:rgba(252,251,250,0.65); margin-top:0.4rem; margin-bottom:1.6rem; }
+    .singapore-popup .popup-close-x { position:absolute; top:1.2rem; right:1.6rem; background:transparent; border:none; color:rgba(255,255,255,0.4); font-size:2.4rem; cursor:pointer; transition:color 0.2s, transform 0.2s; font-family:inherit; line-height:1; padding:0.4rem; z-index:10; }
+    .singapore-popup .popup-close-x:hover { color:var(--white); transform:rotate(90deg); }
+    .singapore-popup .popup-btn { margin-top:1.6rem; display:inline-block; padding:0.8rem 2.4rem; background:rgba(163, 118, 118, 0.2); border:1px solid rgba(122,81,81,0.25); border-radius:8px; color:var(--white); font-size:1.4rem; cursor:pointer; transition:all 0.3s ease; }
+    .singapore-popup .popup-btn:hover { background:rgba(122,81,81,0.95); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding:clamp(2rem,5vh,5rem) 0;
+      color:rgba(255,255,255,0.8);
+      background:var(--dark);
+      position:relative;
+      z-index:10;
+    }
+    .footer .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+    .footer .grid { display:grid; grid-template-columns:1fr 2fr; gap:clamp(2rem,4vw,4rem); margin-bottom:3rem; }
+    .footer .logo-text { font-family:'Versailles',Georgia,serif; font-size:clamp(2.4rem,4vw,3.6rem); font-weight:400; color:var(--white); letter-spacing:0.1em; text-transform:uppercase; }
+    .footer .logo-text span { color:var(--primary); }
+    .footer .address p { font-size:clamp(1.2rem,1.4vw,1.4rem); margin-bottom:0.4rem !important; color:rgba(255,255,255,0.8); }
+    .footer .address a { color:var(--primary); }
+    .footer .right { display:flex; flex-direction:column; align-items:flex-end; gap:2rem; }
+    .footer .social-links { display:flex; gap:1.2rem; }
+    .footer .social-links a { font-size:clamp(1.8rem,2.2vw,2.2rem); padding:0.4rem; transition:all 0.3s ease; color:rgba(255,255,255,0.7); }
+    .footer .social-links a:hover { color:var(--primary); }
+    .footer .footer-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:1rem 2.5rem; font-size:clamp(1rem,1.2vw,1.2rem); }
+    .footer .footer-links a { transition:all 0.3s ease; color:rgba(255,255,255,0.6); }
+    .footer .footer-links a:hover, .footer .footer-links a.active { color:var(--white); }
+    .footer .bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:clamp(1rem,1.2vw,1.2rem); color:rgba(255,255,255,0.5); }
+    @media (max-width:768px) {
+      .footer .grid { grid-template-columns:1fr; gap:2rem; }
+      .footer .right { align-items:flex-start; }
+      .footer .footer-links { justify-content:flex-start; }
+      .footer .bottom { flex-direction:column; align-items:flex-start; }
+    }
+
+    /* ===== SERVICES STACK (overlap, sticky) ===== */
+    .services-stack-wrap {
+      position:relative;
+      z-index:1;
+      background:var(--dark);
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .services-title {
+      font-size: clamp(2.8rem, 4vw, 4rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      padding: 16rem 24px 20px;
+      margin: 0 auto;
+      color: var(--white);
+      font-family:'Versailles',Georgia,serif;
+      display: none;
+    }
+    .services-title .accent { color: var(--primary); font-style: italic; font-weight: 300; }
+    @media (max-width: 820px) {
+      .services-title { font-size: 28px; padding: 40px 16px 12px; }
+    }
+
+    /* LEFT FIXED NAV */
+    .services-side-nav {
+      position: sticky;
+      top: 80px;
+      flex: 0 0 220px;
+      align-self: flex-start;
+      padding: 77px 0 40px 24px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      z-index: 20;
+      background: transparent;
+      pointer-events: auto;
+    }
+    .services-side-nav::-webkit-scrollbar { display: none; width: 0; }
+    .services-side-nav .service-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .services-side-nav .service-nav__item {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      text-align: left;
+      padding: 4px 0;
+      font-family: 'Versailles';
+      color: rgba(252,251,250,0.62);
+      white-space: nowrap;
+      display: block;
+    }
+    .services-side-nav .service-nav__item.is-active {
+      color: var(--primary);
+      font-weight: 600;
+      transform: translateX(6px);
+    }
+
+    .sticky-stack {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0 24px 40px 0;
+      position: relative;
+    }
+    .sticky-stack__item {
+      position: sticky;
+      top: 80px;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 0;
+      will-change: transform;
+      z-index: 1;
+      pointer-events: none;
+      
+      scroll-margin-top: 100px;
+    }
+    .sticky-stack__item:last-child {
+      position: relative;
+      top: 0;
+      margin-bottom: 0;
+    }
+
+    /* ===== TWO-COLUMN SERVICE ROW ===== */
+    .service-row {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      gap: 40px;
+      background: radial-gradient(circle at 0% 0%, #a37676 0%, #0c102a 88%, transparent 0%);
+      border-radius: 24px;
+      padding: 40px 48px;
+      pointer-events: auto;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      transition: opacity 0.2s;
+      height: 60vh;
+    }
+    .service-row::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      background: transparent;
+    }
+
+    /* LEFT COLUMN: heading, features, paragraph */
+    .service-row__card {
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .service-card__title {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--white);
+      margin: 0 0 20px 0;
+      font-family: 'Versailles', Georgia, serif;
+    }
+    .service-card__features {
+      
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 8px 0;
+    }
+    .service-card__feature {
+      font-size: 16px;
+      color: rgba(252,251,250,0.62);
+      position: relative;
+    }
+    .service-card__feature:not(:last-child)::after {
+      content: "·";
+      margin-left: 12px;
+      color: rgba(252,251,250,0.4);
+    }
+    .service-card p {
+      color: rgba(252,251,250,0.62);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-top: 4px;
+      margin-bottom: 8px !important;
+    }
+    .service-card__extra {
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(252,251,250,0.4);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* RIGHT COLUMN: square image with 10px border radius */
+    .service-card__image-wrap {
+      flex: 0 0 650px;
+      max-width: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .service-card__image {
+      width: 100%;
+      aspect-ratio: 3/1.5;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #1a1f35;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
+      height: auto;
+    }
+    .service-card__image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 820px) {
+      .services-stack-wrap { flex-direction: column; }
+      .services-side-nav {
+        position: relative;
+        top: 0;
+        flex: auto;
+        padding: 12px 16px 8px;
+        max-height: none;
+        overflow-y: visible;
+        background: var(--dark);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        width: 100%;
+      }
+      .services-side-nav .service-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+      }
+      .services-side-nav .service-nav__item { font-size: 16px; white-space: normal; }
+      .sticky-stack { padding: 0 16px 40px; }
+      .sticky-stack__item { min-height: 80vh; padding: 20px 0; top: 0; }
+      .service-row {
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 24px;
+        border-radius: 16px;
+        max-height: 70vh;
+      }
+      .service-card__title { font-size: 22px; }
+      .service-card__image-wrap {
+        flex: 0 0 auto;
+        max-width: 100%;
+        width: 100%;
+      }
+      .service-card__image {
+        aspect-ratio: 1/1;
+        max-width: 280px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 1230px) { 
+      .service-card { margin-top: 0; }
+    }
+    @media (max-width: 480px) {
+      .service-row { padding: 16px; }
+      .service-card__title { font-size: 20px; }
+      .service-card__feature { font-size: 14px; }
+      .service-card__image { max-width: 100%; }
+      .services-title { padding: 10rem 16px 12px; font-size: 2.8rem; }
+      .footer .grid { text-align:center; }
+      .footer .right { align-items:center; }
+      .footer .footer-links { justify-content:center; }
+      .header-main { padding:0.6rem 1.2rem; }
+      .logo-img { height:2.8rem !important; }
+      .logo-text { font-size:2rem !important; }
+    }
+
+    /* CTA */
+    .cta{
+      position:relative;
+      z-index:2;
+      padding:11rem 0;
+      text-align:center;
+      background:var(--dark);
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+    .cta h2{ font-size: clamp(2.4rem, 6vw, 3.8rem); margin:0 auto 3.2rem; font-family:'Versailles',Georgia,serif; color:var(--white); }
+    .cta h2 em{ color:var(--primary); font-style:italic; font-weight:300; }
+    .cta .btn-gold{ font-size:1.4rem; padding:1.5rem 3.4rem; background:rgba(163,118,118,0.2); border:1px solid rgba(122,81,81,0.25); color:var(--white); border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
+    .cta .btn-gold:hover{ background:radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); transform:scale(1.03); color:var(--text); }
+
+    .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s var(--slide-ease), transform 0.8s var(--slide-ease); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; transition:none !important; } }
+    /* Add this to your CSS */
+.service-card__features {
+  
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+}
+
+/* Add bullet points using ::before */
+.service-card__feature {
+  font-size: 16px;
+  color: rgba(252,251,250,0.62);
+  position: relative;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.service-card__feature::before {
+  content: "●";
+  color: #a37676;
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Remove the dot separator between items */
+.service-card__feature:not(:last-child)::after {
+  display: none;
+}
+  </style>
+</head>
+<body>
+
+  <!-- Singapore Coming Soon Popup -->
+  <div class="singapore-popup-overlay" id="singaporePopup">
+    <div class="singapore-popup">
+      <button class="popup-close-x" id="singaporePopupClose" aria-label="Close">✕</button>
+      <h2 style="margin-top:10px;">Singapore is coming soon. Stay tuned for our launch!</h2>
+      <button class="popup-btn" id="singaporePopupBtn">Got it</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <a href="#" class="logo-wrap" id="logoLink">
+        <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" class="logo-img" />
+        <span class="logo-text">FINSOULS</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="https://harisumer.me/project-1/">Home</a>
+        <a href="/project-1/about">About us</a>
+        <a href="#" class="active">Services</a>
+        <a href="/project-1/insights">Insights</a>
+        <a href="/project-1/contact">Contact</a>
+      </nav>
+
+      <div class="right-group">
+        <div class="region-selector" id="regionSelectorDesktop">
+          <div class="selected-region" id="selectedRegionDesktop">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowDesktop">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownDesktop">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global" data-region="global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE" data-region="uae"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan" data-region="pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal" data-region="portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore" data-region="singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <a href="#" class="btn">Book a Consultant</a>
+      </div>
+
+      <div class="mobile-right-group">
+        <div class="region-selector" id="regionSelectorMobile">
+          <div class="selected-region" id="selectedRegionMobile">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowMobile">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownMobile">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global" data-region="global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE" data-region="uae"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan" data-region="pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal" data-region="portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore" data-region="singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <h2 style="margin: 100px 20px 0 20px;">Our Core Services</h2>
+  
+  <!-- SERVICES STACK -->
+  <div class="services-stack-wrap" id="servicesWrap">
+    
+    <!-- LEFT FIXED NAV (will be populated by JS) -->
+    <div class="services-side-nav" id="servicesSideNav">
+      <nav class="service-nav" id="sideNavContainer">
+        <!-- buttons injected -->
+      </nav>
+    </div>
+    <div class="sticky-stack" id="servicesStack">
+      <!-- services will be injected by JavaScript -->
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="container">
+      <h2 class="reveal">Ready for books that close themselves out?</h2>
+      <a href="#" class="btn-gold reveal">Book a Consultation</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="grid">
+        <div class="left">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
+            <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" style="height:clamp(3.2rem,4.8vw,5rem); width:auto;" />
+            <span class="logo-text">FINSOULS</span>
+          </div>
+        
+          <div class="address">
+            <p id="footerAddress1">Business Bay Dubai UAE</p>
+            <p><strong id="footerPhone">+971 52 449 4542</strong></p>
+            <p><a href="mailto:info@finsouls.com" style="color: rgba(255, 255, 255, 0.8);" id="footerEmail">info@finsouls.com</a></p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+          <div class="footer-links">
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy">Contacts &amp; Offices</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#terms-conditions">Terms &amp; Conditions</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#cookie-policy">Cookies Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy" class="active">Privacy Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#sitemap">Sitemap</a>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 FINSOULS | Planning &amp; Guidance. All Rights Reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // HEADER SCROLL
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 20) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // MOBILE MENU
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+      navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+      // REVEAL ON SCROLL
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(el => io.observe(el));
+
+      // SINGAPORE POPUP
+      const singaporePopup = document.getElementById('singaporePopup');
+      function showSingaporePopup() {
+        singaporePopup.classList.add('active');
+      }
+      function hideSingaporePopup() {
+        singaporePopup.classList.remove('active');
+      }
+      document.getElementById('singaporePopupClose').addEventListener('click', hideSingaporePopup);
+      document.getElementById('singaporePopupBtn').addEventListener('click', hideSingaporePopup);
+      singaporePopup.addEventListener('click', function(e) { if (e.target === this) hideSingaporePopup(); });
+
+      // ---------- REGION DATA ----------
+      const serviceData = {
+        global: {
+          title: "Our core services",
+          nav: ["Bookkeeping", "VAT & Tax", "Audit", "Business Setup"],
+          cards: [
+            {
+              title: "Bookkeeping & Accounting",
+              features: ["Monthly bookkeeping", "Payroll processing", "Accounts payable/receivable", "Management reporting"],
+              desc: "Books reconciled monthly and reviewed by chartered accountants, so your numbers are audit‑ready the moment you need them.",
+              extra: "We handle everything from day‑to‑day entries to financial statements, giving you clarity and control.",
+              image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "VAT & Tax Advisory",
+              features: ["VAT registration", "Quarterly filing", "Corporate tax", "Voluntary disclosures"],
+              desc: "FTA‑certified guidance on VAT registration, filing, and corporate tax — built to keep you compliant and penalty‑free.",
+              extra: "Our tax advisory services cover VAT, corporate tax, and excise tax. We help businesses register for VAT, file accurate returns, and manage tax audits.",
+              image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Audit & Assurance",
+              features: ["Statutory audit", "Internal controls review", "Due diligence", "Investor reporting"],
+              desc: "Independent, thorough audits that satisfy regulators and investors — and give you an honest read on your own numbers.",
+              extra: "Our audit services include statutory audits, internal audits, and due diligence reviews. We provide independent opinions on financial statements.",
+              image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Business Setup & Advisory",
+              features: ["Trade licensing", "Bank account opening", "Freezone vs mainland", "CFO advisory"],
+              desc: "From licensing to banking, we structure your entity right the first time — mainland, freezone, or offshore.",
+              extra: "Our business setup services include company registration, trade licensing, and bank account opening. We help clients choose between freezone and mainland setups.",
+              image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=600&fit=crop&crop=center&auto=format"
+            }
+          ]
+        },
+        uae: {
+          title: "Our services — UAE",
+          nav: ["Business Setup", "Accounting", "Banking", "CFO Advisory", "Project Mgmt"],
+          cards: [
+            {
+              title: "Business Setup",
+              features: ["Structure selection", "Trade licence", "PRO & visas", "Bank account intro", "Ejari registration"],
+              desc: "Mainland, freezone or offshore — the right structure depends on what you sell, where your clients sit and how you bank. We advise on the structure first, then handle the licensing, visas and paperwork until you are trading.",
+              extra: "We handle the entire setup process, from jurisdiction selection to office leasing, so you can start trading without delays.",
+              image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Accounting & Bookkeeping",
+              features: ["Monthly bookkeeping", "VAT registration & filing", "Corporate tax", "Payroll & WPS", "Year‑end statements"],
+              desc: "We keep your records to IFRS standards and file with the FTA on time, every time. When a bank, auditor or buyer asks for your numbers, they are ready the same day.",
+              extra: "Our accounting services are designed to give you peace of mind, with full compliance and timely reporting.",
+              image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Banking Consultancy",
+              features: ["Account opening", "Working capital", "Corporate loans", "Bank guarantees", "Mortgage finance"],
+              desc: "UAE banking rewards preparation and relationships. We prepare your file the way credit teams want to read it, and we put it in front of the right people.",
+              extra: "We leverage our banking relationships to get you the best terms and fastest approvals.",
+              image: "https://images.unsplash.com/photo-1591696204402-5b7ca8121ab6?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "CFO Advisory",
+              features: ["Cash flow planning", "Budgeting", "Business valuation", "Feasibility studies", "Board reporting"],
+              desc: "Most SMEs need a CFO for a few days a month, not a full salary. We give you the planning, forecasting and board‑level reporting of a finance director, scaled to your size.",
+              extra: "Our fractional CFO service provides senior financial expertise without the full‑time cost.",
+              image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Project Management",
+              features: ["Project costing", "Vendor oversight", "Milestone tracking", "Risk reporting", "Stakeholder reporting"],
+              desc: "For clients building, expanding or relocating, we manage the financial side of the project — costing, vendors, milestones — so overruns are caught early, not explained later.",
+              extra: "We keep your project on track financially, so you can focus on delivery.",
+              image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=600&fit=crop&crop=center&auto=format"
+            }
+          ]
+        },
+        pakistan: {
+          title: "Our services — Pakistan",
+          nav: ["Taxation", "Business Setup", "Banking", "Accounting", "Audit"],
+          cards: [
+            {
+              title: "Taxation",
+              features: ["NTN & sales tax", "Corporate & individual filing", "Withholding tax", "Notice responses", "Advance tax"],
+              desc: "Pakistani tax is less about rates and more about records. We register you correctly, file on time and answer notices with documentation instead of anxiety.",
+              extra: "We keep you compliant with the FBR, handling everything from registration to appeals.",
+              image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Business Setup",
+              features: ["SECP incorporation", "Tax registrations", "Foreign company registration", "Sector licences", "Corporate filings"],
+              desc: "We register companies for Pakistani founders and foreign entrants alike — SECP incorporation, tax registrations and the licences your sector requires, handled as one process.",
+              extra: "We make business formation in Pakistan straightforward and fully compliant.",
+              image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Banking Services",
+              features: ["Account opening", "Loan applications", "Working capital", "Financial documentation", "Relationship support"],
+              desc: "Facilities in Pakistan turn on the quality of your financials and the strength of the introduction. We handle both.",
+              extra: "Our banking services help you secure the facilities you need with professionally prepared financials.",
+              image: "https://images.unsplash.com/photo-1591696204402-5b7ca8121ab6?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Accounting & Bookkeeping",
+              features: ["Monthly bookkeeping", "Sales tax records", "Payroll processing", "Financial statements", "Compliance calendar"],
+              desc: "We keep your books current, your sales tax records reconciled and your statements ready — so a notice from the FBR is an errand, not an emergency.",
+              extra: "Our accounting services ensure you are always audit‑ready and compliant.",
+              image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Audit",
+              features: ["Statutory audit", "Internal audit", "Compliance audits", "Stock verification", "Audit readiness"],
+              desc: "As a licensed audit firm, we conduct statutory and internal audits that stand up to regulators, lenders and shareholders — and we tell you what we find in plain terms.",
+              extra: "We provide thorough and independent audits that build trust with stakeholders.",
+              image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=600&fit=crop&crop=center&auto=format"
+            }
+          ]
+        },
+        portugal: {
+          title: "Our services — Portugal",
+          nav: ["Business Setup", "Residency", "Accounting", "Advisory"],
+          cards: [
+            {
+              title: "Business Setup",
+              features: ["LDA formation", "NIF & tax registrations", "Bank account opening", "Municipal registrations", "Ongoing filings"],
+              desc: "We form Portuguese entities end to end — company registration, tax numbers, banking and the filings that follow — for founders who may not set foot in Lisbon until it is done.",
+              extra: "We handle your entire setup remotely, so you can focus on your business.",
+              image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Residency Consultancy",
+              features: ["Pathway assessment", "NHR guidance", "Document preparation", "Application filing", "Family reunification"],
+              desc: "Golden Visa, D7, D2 — each suits a different profile of income, capital and intent. We assess your situation first, then build the application that actually fits it.",
+              extra: "Our residency services are tailored to your personal and financial situation.",
+              image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Accounting & Bookkeeping",
+              features: ["Portuguese bookkeeping", "IVA filing", "IRS/IRC returns", "Payroll & social security", "Cross‑border coordination"],
+              desc: "Owners with income in the Gulf and obligations in Portugal need books that satisfy both. We keep Portuguese records compliant while coordinating with your position abroad.",
+              extra: "We bridge the gap between Portuguese compliance and your international affairs.",
+              image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Advisory",
+              features: ["Market entry", "UAE‑Portugal structuring", "Property guidance", "Banking introductions", "Compliance oversight"],
+              desc: "Market entry, property, structuring between the UAE and Europe — we advise on what holds up in practice, drawing on clients who have already made the move.",
+              extra: "Our advisory services give you the confidence to make informed decisions in Portugal.",
+              image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=600&fit=crop&crop=center&auto=format"
+            }
+          ]
+        },
+        singapore: {
+          title: "Coming soon — Singapore",
+          nav: ["Market Entry", "Accounting", "Tax", "Advisory"],
+          cards: [
+            {
+              title: "Market Entry",
+              features: ["Company registration", "Licensing", "Bank account", "Compliance"],
+              desc: "We are preparing our Singapore office to help you enter one of Asia's most dynamic markets.",
+              extra: "Get in touch to register your interest and we will keep you updated.",
+              image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Accounting & Bookkeeping",
+              features: ["Bookkeeping", "Financial statements", "Payroll", "Compliance"],
+              desc: "Our Singapore team will provide the same high‑standard accounting services you expect from Finsouls.",
+              extra: "We are building a team of local experts to serve you.",
+              image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Tax Advisory",
+              features: ["Corporate tax", "GST", "Tax planning", "Compliance"],
+              desc: "We will help you navigate Singapore's tax landscape with confidence.",
+              extra: "Our tax advisory services will be available upon our launch.",
+              image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&h=600&fit=crop&crop=center&auto=format"
+            },
+            {
+              title: "Advisory",
+              features: ["Market entry", "Structuring", "Banking", "Compliance"],
+              desc: "Strategic advice for businesses looking to expand into Singapore and Asia.",
+              extra: "We are building our local knowledge to provide the best advice.",
+              image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=600&fit=crop&crop=center&auto=format"
+            }
+          ]
+        }
+      };
+
+      // ---------- DOM REFS ----------
+      const stack = document.getElementById('servicesStack');
+      const sideNavContainer = document.getElementById('sideNavContainer');
+
+      // Store the current region to re-render if needed
+      let currentRegion = 'global';
+
+      // ---------- ACTIVE NAV (SCROLL) ----------
+      let scrollTick = false;
+
+      function updateActiveService() {
+        const items = document.querySelectorAll(".sticky-stack__item");
+        const buttons = document.querySelectorAll(".service-nav__item");
+
+        if (!items.length) return;
+
+        const trigger = window.innerHeight * 0.35;
+
+        let activeIndex = 0;
+
+        items.forEach((item, index) => {
+          const rect = item.getBoundingClientRect();
+
+          if (rect.top <= trigger) {
+            activeIndex = index;
+          }
+        });
+
+        buttons.forEach((btn, index) => {
+          btn.classList.toggle("is-active", index === activeIndex);
+        });
+
+        scrollTick = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!scrollTick) {
+          requestAnimationFrame(updateActiveService);
+          scrollTick = true;
+        }
+      });
+
+      // ---------- RENDER FUNCTION ----------
+      function renderServices(regionKey) {
+        currentRegion = regionKey;
+        const data = serviceData[regionKey] || serviceData.global;
+
+        // Build side nav with anchor tags
+        let navHtml = '';
+        data.nav.forEach((label, idx) => {
+          navHtml += `
+            <a 
+              href="#service-${idx}" 
+              class="service-nav__item" 
+              data-index="${idx}">
+              ${label}
+            </a>
+          `;
+        });
+        sideNavContainer.innerHTML = navHtml;
+
+        // Build stack with TWO columns: left text, right image
+        let html = '';
+        data.cards.forEach((card, idx) => {
+          const features = card.features.map(f => `<li class="service-card__feature">${f}</li>`).join('');
+          const imgSrc = card.image || 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=600&fit=crop&crop=center&auto=format';
+
+          html += `
+            <div 
+              class="sticky-stack__item" 
+              id="service-${idx}"
+              data-index="${idx}">
+              <div class="service-row">
+                <!-- LEFT COLUMN: heading, features, paragraph, extra -->
+                <div class="service-row__card">
+                  <article class="service-card">
+                    <h3 class="service-card__title">${card.title}</h3>
+                    <ul class="service-card__features">${features}</ul>
+                    <p>${card.desc},${card.extra}</p>
+                    
+                  </article>
+                </div>
+                <!-- RIGHT COLUMN: square image with 10px radius -->
+                <div class="service-card__image-wrap">
+                  <img class="service-card__image" src="${imgSrc}" alt="${card.title} visual" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        stack.innerHTML = html;
+
+        // Set initial active (first)
+        const firstBtn = sideNavContainer.querySelector('.service-nav__item');
+        if (firstBtn) firstBtn.classList.add('is-active');
+
+        // Update active state after render
+        setTimeout(updateActiveService, 100);
+      }
+
+      // ---------- REGION SELECTOR SETUP ----------
+      function setupRegionSelector(selectorId, selectedId, dropdownId, arrowId) {
+        const selector = document.getElementById(selectorId);
+        if (!selector) return;
+        const selected = document.getElementById(selectedId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+        const items = dropdown.querySelectorAll('.dropdown-item');
+
+        selected.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+          if (arrow) arrow.classList.toggle('open');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const flag = this.dataset.flag;
+            const label = this.dataset.label;
+            const region = this.dataset.region || 'global';
+
+            if (region === 'singapore') {
+              showSingaporePopup();
+              // Don't switch to Singapore, keep current region
+              // Update the selected display to show Global
+              const globalFlag = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg';
+              selected.innerHTML = `<span class="flag-icon"><img src="${globalFlag}" alt="Global" /></span><span>Global</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+              const newArrow = document.getElementById(arrowId);
+              if (newArrow) newArrow.classList.remove('open');
+              dropdown.classList.remove('open');
+              // If current region is already global, don't re-render
+              if (currentRegion !== 'global') {
+                renderServices('global');
+              }
+              return;
+            }
+
+            selected.innerHTML = `
+              <span class="flag-icon"><img src="${flag}" alt="${label}" /></span>
+              <span>${label}</span>
+              <span class="arrow-down" id="${arrowId}">▾</span>
+            `;
+            const newArrow = document.getElementById(arrowId);
+            if (newArrow) newArrow.classList.remove('open');
+            dropdown.classList.remove('open');
+            items.forEach(d => d.style.background = 'transparent');
+            this.style.background = 'rgba(122,81,81,0.15)';
+
+            renderServices(region);
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!selector.contains(e.target)) {
+            dropdown.classList.remove('open');
+            const arrowEl = document.getElementById(arrowId);
+            if (arrowEl) arrowEl.classList.remove('open');
+          }
+        });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+      }
+
+      setupRegionSelector('regionSelectorMobile', 'selectedRegionMobile', 'regionDropdownMobile', 'regionArrowMobile');
+      setupRegionSelector('regionSelectorDesktop', 'selectedRegionDesktop', 'regionDropdownDesktop', 'regionArrowDesktop');
+
+      // ---------- INITIAL RENDER (Global) ----------
+      renderServices('global');
+
+      // Handle window resize
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          updateActiveService();
+        }, 250);
+      });
+
+      // Handle hash change for active state
+      window.addEventListener('hashchange', function() {
+        setTimeout(updateActiveService, 100);
+      });
+
+    })();
+  </script>
+</body>
+</html>

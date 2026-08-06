@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Single Post — FINSOULS</title>
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="32x32" />
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://harisumer.me/project-1/finsoul-logof.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== FONTS ===== */
+    @font-face {
+      font-family: 'Versailles';
+      src: url('https://harisumer.me/project-1/jen-wagner-co-versailles-regular (1).ttf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Neue Montreal';
+      src: url('https://harisumer.me/project-1/NeueMontreal-Light.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== VARIABLES & RESETS ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary:#a37676;
+      --primary-dark:#570d29;
+      --dark:#0c102a;
+      --text:#fcfbfa;
+      --white:#fcfbfa;
+      --black:#0c102a;
+      --shadow:0 10px 25px rgba(0,0,0,0.4);
+      --slide-ease:cubic-bezier(0.25,0.46,0.45,0.94);
+      --color-border-dark:rgba(255,255,255,0.08);
+    }
+    html { font-size:62.5%; scroll-behavior:smooth; }
+    body {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+      letter-spacing:1px;
+      font-size:1.6rem;
+      line-height:1.75;
+      color:var(--text);
+      background:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; padding:0; margin:0; }
+    img { max-width:100%; display:block; height:auto; }
+    h1,h2,h3,h4,h5,h6 {
+      font-family:'Versailles',Georgia,'Times New Roman',serif;
+      font-weight:400;
+      color:var(--white);
+      line-height:1.2;
+    }
+    h1 { font-size:clamp(2.8rem,8vw,5.6rem); }
+    h2 { font-size:clamp(2.4rem,6vw,3.8rem); color:#fff; margin-bottom:35px !important; }
+    h3 { font-size:clamp(2rem,4vw,2.8rem); color:#c99aa3; }
+    p, .p, .paragraph, .text, .desc, .label, .stat .label, .faq-answer, .newsletter p, .footer .address p, .footer .bottom, .region-popup p {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+    }
+    p { margin-bottom:35px !important; }
+    .btn {
+      display:inline-block; padding:1.2rem 2.8rem;
+      background:rgba(163, 118, 118, 0.2);
+      border:1px solid rgba(122,81,81,0.25);
+      color:var(--white);
+      font-size:clamp(1.2rem,1.4vw,1.4rem);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.075em;
+      border-radius:8px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%);
+      border-color:rgba(122,81,81,0.9);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      transform:scale(1.03);
+      color:var(--text);
+    }
+    .btn-arrow {
+      display:inline-flex; align-items:center; gap:0.8rem; padding:1rem 2.4rem 1rem 1.6rem;
+      color:var(--white); font-weight:500;
+      transition:all 0.3s ease;
+      background:rgba(163, 118, 118, 0.2);
+      border-radius:10px;
+      border:1px solid rgba(122,81,81,0.25);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-arrow::after { content:"→"; font-size:1.8rem; transition:all 0.3s ease; }
+    .btn-arrow:hover { gap:1.2rem; background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); color:var(--text); }
+    .btn-arrow-white { color:var(--white); }
+    .btn-arrow-white:hover { color:var(--text); }
+    .btn-arrow-white:hover::after { color:var(--text); }
+    .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:transparent;
+      transition:background 0.4s ease, box-shadow 0.3s ease;
+    }
+    .header.scrolled { background:var(--dark) !important; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
+    .header-main {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.8rem 2rem;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+    .logo-wrap {
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+      flex-shrink:0;
+    }
+    .logo-img { height:clamp(2.8rem,4vw,4.2rem); width:auto; }
+    .logo-text {
+      font-family:'Versailles',Georgia,serif;
+      font-size:clamp(2.4rem,4vw,3.6rem);
+      font-weight:400;
+      color:var(--white);
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      line-height:1;
+      transition:color 0.3s ease;
+    }
+    .logo-text span { color:var(--primary); }
+    .header.scrolled .logo-text { color:var(--white); }
+    .header.scrolled .logo-text span { color:var(--primary); }
+
+    .nav-menu {
+      display:flex;
+      align-items:center;
+      gap:clamp(1.2rem,2.5vw,2.4rem);
+      flex:1;
+      justify-content:center;
+      margin:0 2rem 0 11rem;
+    }
+    .nav-menu a {
+      font-size: clamp(1.4rem, 1.6vw, 1.8rem);
+      font-weight:500;
+      color:var(--white);
+      transition:color 0.25s ease, border-color 0.25s ease;
+      padding:0.4rem 0;
+      border-bottom:2px solid transparent;  
+      white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+    .right-group {
+      display:flex;
+      align-items:center;
+      gap:clamp(1rem,1.5vw,2rem);
+      flex-shrink:0;
+    }
+    .nav-menu .btn {
+      padding:0.6rem 1.6rem;
+      font-size:clamp(1rem,1.2vw,1.2rem);
+      color:var(--white);
+      white-space:nowrap;
+      border:1px solid rgba(122,81,81,0.2);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+      margin-left:0.4rem;
+    }
+    .nav-menu .btn:hover {
+      background:rgba(122,81,81,0.95);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      color:var(--text);
+      border-color:rgba(122,81,81,0.9);
+    }
+
+    .mobile-right-group {
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+    }
+
+    .region-selector { position:relative; display:inline-block; cursor:pointer; }
+    .region-selector .selected-region {
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.4rem 1rem 0.4rem 0.6rem;
+      border-radius:30px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:background 0.2s, border-color 0.2s;
+      font-size:clamp(1.1rem,1.2vw,1.3rem);
+      font-weight:500;
+      color:var(--white);
+      line-height:1.4;
+    }
+    .region-selector .selected-region:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); }
+    .region-selector .selected-region .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .region-selector .selected-region .flag-icon img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .region-selector .selected-region .arrow-down { font-size:1.2rem; opacity:0.6; transition:transform 0.25s ease; margin-left:0.2rem; }
+    .region-selector .selected-region .arrow-down.open { transform:rotate(180deg); }
+    .region-selector .dropdown-list {
+      position:absolute; top:calc(100% + 8px); right:0; min-width:200px;
+      background:rgba(23,28,48,0.96); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.6);
+      padding:0.6rem 0; opacity:0; visibility:hidden;
+      transform:translateY(-6px); transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index:1200; backdrop-filter:blur(8px);
+    }
+    .region-selector .dropdown-list.open { opacity:1; visibility:visible; transform:translateY(0); }
+    .region-selector .dropdown-item {
+      display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1.4rem;
+      color:var(--white); font-size:clamp(1.2rem,1.3vw,1.4rem);
+      transition:background 0.15s; cursor:pointer; border:none;
+      background:transparent; width:100%; text-align:left; font-family:inherit;
+    }
+    .region-selector .dropdown-item:hover { background:rgba(122,81,81,0.15); color:var(--primary); }
+    .region-selector .dropdown-item .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .region-selector .dropdown-item .flag-icon img { width:100%; height:100%; object-fit:cover; }
+
+    .hamburger { display:none; flex-direction:column; gap:0.4rem; cursor:pointer; padding:0.4rem; background:none; border:none; }
+    .hamburger span { display:block; width:2.8rem; height:2px; background:var(--white); transition:all 0.3s ease; }
+
+    @media (max-width:1024px) {
+      .nav-menu {
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:var(--dark);
+        padding:2rem;
+        box-shadow:var(--shadow);
+        gap:1.2rem;
+        border-top:1px solid rgba(255,255,255,0.05);
+        align-items:stretch;
+        margin:0;
+      }
+      .nav-menu.open { display:flex; }
+      .hamburger { display:flex; }
+      .nav-menu a {
+        color:var(--white) !important;
+        white-space:normal;
+        padding:0.8rem 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+        text-align:center;
+      }
+      .nav-menu a:hover { color:var(--primary) !important; border-bottom-color:var(--primary) !important; }
+      .nav-menu .btn { width:100%; text-align:center; }
+      .nav-menu .region-selector { display:none !important; }
+      .header-main .region-selector { display:inline-block; }
+      .right-group { display:none; }
+    }
+    @media (min-width:1025px) {
+      #regionSelectorMobile { display:none !important; }
+      .nav-menu .region-selector { display:inline-block !important; }
+      .mobile-right-group .region-selector { display:none !important; }
+    }
+
+    /* ===== Singapore Coming Soon Popup ===== */
+    .singapore-popup-overlay {
+      position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.5s ease;
+    }
+    .singapore-popup-overlay.active { opacity:1; pointer-events:auto; }
+    .singapore-popup {
+      background:var(--dark); border:1px solid var(--color-border-dark); border-radius:20px; padding:3.2rem 2.8rem; max-width:420px; width:92%; box-shadow:0 25px 50px rgba(0,0,0,0.8); transform:scale(0.95) translateY(20px); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease; opacity:0; text-align:center; position:relative;
+    }
+    .singapore-popup-overlay.active .singapore-popup { transform:scale(1) translateY(0); opacity:1; }
+    .singapore-popup h2 { font-family:'Versailles',Georgia,serif; font-size:clamp(2.2rem,3.5vw,3rem); font-weight:400; color:var(--text); margin:0 0 0.2rem 0; }
+    .singapore-popup .popup-sub { font-family:'Neue Montreal','Inter',Arial,sans-serif; font-size:clamp(1.3rem,1.6vw,1.6rem); color:rgba(252,251,250,0.65); margin-top:0.4rem; margin-bottom:1.6rem; }
+    .singapore-popup .popup-close-x { position:absolute; top:1.2rem; right:1.6rem; background:transparent; border:none; color:rgba(255,255,255,0.4); font-size:2.4rem; cursor:pointer; transition:color 0.2s, transform 0.2s; font-family:inherit; line-height:1; padding:0.4rem; z-index:10; }
+    .singapore-popup .popup-close-x:hover { color:var(--white); transform:rotate(90deg); }
+    .singapore-popup .popup-btn { margin-top:1.6rem; display:inline-block; padding:0.8rem 2.4rem; background:rgba(163, 118, 118, 0.2); border:1px solid rgba(122,81,81,0.25); border-radius:8px; color:var(--white); font-size:1.4rem; cursor:pointer; transition:all 0.3s ease; }
+    .singapore-popup .popup-btn:hover { background:rgba(122,81,81,0.95); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding:clamp(2rem,5vh,5rem) 0;
+      color:rgba(255,255,255,0.8);
+      background:var(--dark);
+      position:relative;
+      z-index:10;
+    }
+    .footer .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+    .footer .grid { display:grid; grid-template-columns:1fr 2fr; gap:clamp(2rem,4vw,4rem); margin-bottom:3rem; }
+    .footer .logo-text { font-family:'Versailles',Georgia,serif; font-size:clamp(2.4rem,4vw,3.6rem); font-weight:400; color:var(--white); letter-spacing:0.1em; text-transform:uppercase; }
+    .footer .logo-text span { color:var(--primary); }
+    .footer .address p { font-size:clamp(1.2rem,1.4vw,1.4rem); margin-bottom:0.4rem !important; color:rgba(255,255,255,0.8); }
+    .footer .address a { color:var(--primary); }
+    .footer .right { display:flex; flex-direction:column; align-items:flex-end; gap:2rem; }
+    .footer .social-links { display:flex; gap:1.2rem; }
+    .footer .social-links a { font-size:clamp(1.8rem,2.2vw,2.2rem); padding:0.4rem; transition:all 0.3s ease; color:rgba(255,255,255,0.7); }
+    .footer .social-links a:hover { color:var(--primary); }
+    .footer .footer-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:1rem 2.5rem; font-size:clamp(1rem,1.2vw,1.2rem); }
+    .footer .footer-links a { transition:all 0.3s ease; color:rgba(255,255,255,0.6); }
+    .footer .footer-links a:hover, .footer .footer-links a.active { color:var(--white); }
+    .footer .bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:clamp(1rem,1.2vw,1.2rem); color:rgba(255,255,255,0.5); }
+    @media (max-width:768px) {
+      .footer .grid { grid-template-columns:1fr; gap:2rem; }
+      .footer .right { align-items:flex-start; }
+      .footer .footer-links { justify-content:flex-start; }
+      .footer .bottom { flex-direction:column; align-items:flex-start; }
+    }
+
+    /* ===== SINGLE POST PAGE SPECIFIC ===== */
+    .post-section {
+      padding: 16rem 0 6rem;
+      background: var(--dark);
+    }
+    .post-header {
+      margin-bottom: 3.2rem;
+    }
+    .post-header .breadcrumb {
+      font-size: 1.2rem;
+      color: rgba(252,251,250,0.4);
+      margin-bottom: 1.2rem;
+    }
+    .post-header .breadcrumb a { color: var(--primary); }
+    .post-header .breadcrumb a:hover { text-decoration:underline; }
+    .post-header h1 {
+      font-size: clamp(3rem,5vw,5rem);
+      font-family:'Versailles',Georgia,serif;
+      color:var(--white);
+      max-width: 900px;
+      line-height:1.2;
+      margin-bottom: 1.2rem;
+    }
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem 2.4rem;
+      font-size: 1.4rem;
+      color: rgba(252,251,250,0.62);
+      margin-bottom: 2.4rem;
+    }
+    .post-meta .category { color: var(--primary); font-weight:600; }
+    .post-meta .region-tag { background:rgba(122,81,81,0.15); padding:0.2rem 1rem; border-radius:20px; border:1px solid rgba(122,81,81,0.25); }
+    .post-featured-image {
+      margin: 2rem 0 3.2rem;
+      border-radius: 20px;
+      overflow: hidden;
+      border:1px solid rgba(255,255,255,0.08);
+      background: #1a1a1a;
+    }
+    .post-featured-image img {
+      width:100%;
+      max-height:500px;
+      object-fit:cover;
+      display:block;
+    }
+    .post-content {
+      font-size: 1.7rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .post-content p {
+      margin-bottom: 2rem;
+      color: rgba(252,251,250,0.88);
+    }
+    .post-content h2 {
+      font-size: 2.6rem;
+      font-family:'Versailles',Georgia,serif;
+      color:var(--white);
+      margin: 3.2rem 0 1.2rem;
+    }
+    .post-content h3 {
+      font-size: 2rem;
+      font-family:'Versailles',Georgia,serif;
+      color:#c99aa3;
+      margin: 2.4rem 0 1rem;
+    }
+    .post-content ul, .post-content ol {
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+      color: rgba(252,251,250,0.85);
+    }
+    .post-content li { margin-bottom: 0.6rem; }
+    .post-content blockquote {
+      border-left: 4px solid var(--primary);
+      padding: 1.2rem 2rem;
+      margin: 2.4rem 0;
+      background: rgba(122,81,81,0.06);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: rgba(252,251,250,0.62);
+    }
+    .post-content blockquote p { margin-bottom:0; }
+    .author-card {
+      margin-top: 4rem;
+      padding: 2.4rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .author-card .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: var(--white);
+      flex-shrink:0;
+    }
+    .author-card .info h4 { font-size:1.8rem; color:var(--white); margin-bottom:0.2rem; }
+    .author-card .info p { font-size:1.4rem; color:rgba(252,251,250,0.62); margin-bottom:0; }
+
+    .read-also {
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .read-also h3 { font-size:2.2rem; color:var(--white); margin-bottom:2rem; font-family:'Versailles',Georgia,serif; }
+    .read-also-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap: 2rem;
+    }
+    .read-also-item {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 1.6rem;
+      border:1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s var(--slide-ease);
+    }
+    .read-also-item:hover { transform:translateY(-4px); border-color:rgba(122,81,81,0.3); }
+    .read-also-item h4 { font-size:1.6rem; color:var(--white); margin-bottom:0.4rem; font-family:'Versailles',Georgia,serif; }
+    .read-also-item .meta { font-size:1.2rem; color:rgba(252,251,250,0.4); }
+    .read-also-item .meta .cat { color:var(--primary); }
+
+    .btn-back {
+      display:inline-flex;
+      align-items:center;
+      gap:0.6rem;
+      color:rgba(252,251,250,0.62);
+      font-size:1.4rem;
+      margin-bottom:1.6rem;
+      transition:color 0.3s;
+    }
+    .btn-back:hover { color:var(--primary); }
+    .btn-back::before { content:'←'; }
+
+    .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s var(--slide-ease), transform 0.8s var(--slide-ease); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; transition:none !important; } }
+
+    /* Mobile */
+    @media (max-width:480px) {
+      .post-section { padding:10rem 0 4rem; }
+      .post-header h1 { font-size:2.8rem; }
+      .post-meta { font-size:1.2rem; gap:1rem; }
+      .post-featured-image { margin:1rem 0 2rem; }
+      .post-content { font-size:1.5rem; }
+      .post-content h2 { font-size:2.2rem; }
+      .author-card { flex-direction:column; text-align:center; }
+      .read-also-grid { grid-template-columns:1fr; }
+      .footer .grid { text-align:center; }
+      .footer .right { align-items:center; }
+      .footer .footer-links { justify-content:center; }
+      .header-main { padding:0.6rem 1.2rem; }
+      .logo-img { height:2.8rem !important; }
+      .logo-text { font-size:2rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Singapore Coming Soon Popup -->
+  <div class="singapore-popup-overlay" id="singaporePopup">
+    <div class="singapore-popup">
+      <button class="popup-close-x" id="singaporePopupClose" aria-label="Close">✕</button>
+      <h2 style="margin-top:10px;">Singapore is coming soon. Stay tuned for our launch!</h2>
+      <button class="popup-btn" id="singaporePopupBtn">Got it</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <a href="#" class="logo-wrap" id="logoLink">
+        <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" class="logo-img" />
+        <span class="logo-text">FINSOULS</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="https://harisumer.me/project-1/">Home</a>
+        <a href="/project-1/about">About us</a>
+        <a href="/project-1/finsouls-services">Services</a>
+        <a href="#" class="active">Insights</a>
+        <a href="/project-1/contact">Contact</a>
+      </nav>
+
+      <div class="right-group">
+        <div class="region-selector" id="regionSelectorDesktop">
+          <div class="selected-region" id="selectedRegionDesktop">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowDesktop">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownDesktop">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <a href="#" class="btn">Book a Consultant</a>
+      </div>
+
+      <div class="mobile-right-group">
+        <div class="region-selector" id="regionSelectorMobile">
+          <div class="selected-region" id="selectedRegionMobile">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowMobile">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownMobile">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SINGLE POST -->
+  <section class="post-section" id="postSection">
+    <div class="container">
+      <!-- breadcrumb & back -->
+      <a href="/project-1/insights" class="btn-back">Back to Insights</a>
+
+      <div class="post-header reveal">
+        <h1>How to build a resilient financial strategy in 2026</h1>
+        <div class="post-meta">
+          <span class="category">Strategy</span>
+          <span>May 12, 2026</span>
+          <span>7 min read</span>
+          <span class="region-tag">🌍 Global</span>
+        </div>
+      </div>
+
+      <!-- featured image -->
+      <div class="post-featured-image reveal">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop&crop=center&auto=format" alt="Financial strategy" />
+      </div>
+
+      <!-- post content -->
+      <div class="post-content reveal">
+        <p>In an era of economic volatility, geopolitical shifts, and rapid regulatory change, building a resilient financial strategy is no longer optional — it's essential. For business leaders in the UAE, Pakistan, Portugal, and beyond, 2026 demands a forward-looking approach that balances growth with risk management.</p>
+
+        <h2>1. Embrace scenario planning</h2>
+        <p>Gone are the days of static annual budgets. Today's financial leaders use scenario planning to model multiple outcomes — from supply chain disruptions to currency fluctuations. By stress-testing your assumptions, you can pivot quickly when conditions change.</p>
+        <blockquote><p>"Resilience is not about predicting the future; it's about being prepared for multiple futures."</p></blockquote>
+
+        <h2>2. Strengthen cash flow visibility</h2>
+        <p>Cash is king, and visibility is its crown. Implement real-time dashboards that track receivables, payables, and liquidity. In the UAE, new VAT and corporate tax rules make this even more critical for compliance and planning.</p>
+        <ul>
+          <li>Automate invoicing and payment reminders.</li>
+          <li>Negotiate flexible payment terms with key suppliers.</li>
+          <li>Maintain a buffer of at least 3–6 months of operating expenses.</li>
+        </ul>
+
+        <h2>3. Leverage technology for efficiency</h2>
+        <p>From AI-powered forecasting to blockchain-based reconciliation, technology is reshaping finance. Automating bookkeeping and reporting frees up your team to focus on strategic analysis. Consider tools that integrate with your existing ERP for seamless data flow.</p>
+
+        <h2>4. Stay ahead of regulatory changes</h2>
+        <p>Whether it's FBR compliance in Pakistan, VAT in the UAE, or the new corporate tax regime, staying compliant is a cornerstone of resilience. Partner with advisors who monitor regulatory shifts and translate them into actionable steps.</p>
+
+        <h2>5. Build a culture of financial literacy</h2>
+        <p>Resilience starts with people. Train your team to understand key financial metrics and how their decisions impact the bottom line. A financially literate workforce can identify risks and opportunities early.</p>
+
+        <p>Building a resilient financial strategy is a journey, not a destination. By combining robust planning, technology, and expert guidance, your business can navigate uncertainty with confidence.</p>
+        <p><strong>Ready to strengthen your financial strategy?</strong> <a href="/project-1/contact" style="color:var(--primary);">Contact our team</a> for a tailored consultation.</p>
+      </div>
+
+      <!-- author card -->
+      <div class="author-card reveal">
+        <div class="avatar">F</div>
+        <div class="info">
+          <h4>Finsouls Editorial</h4>
+          <p>Insights team — helping businesses navigate finance, tax, and growth across the UAE, Pakistan, Portugal, and Singapore.</p>
+        </div>
+      </div>
+
+      <!-- read also -->
+      <div class="read-also reveal">
+        <h3>Read also</h3>
+        <div class="read-also-grid">
+          <a href="/project-1/post?id=2" class="read-also-item">
+            <h4>UAE VAT: What businesses need to know for Q2 2026</h4>
+            <div class="meta"><span class="cat">VAT</span> · Apr 28, 2026</div>
+          </a>
+          <a href="/project-1/post?id=3" class="read-also-item">
+            <h4>Automating bookkeeping: Tools that save time</h4>
+            <div class="meta"><span class="cat">Accounting</span> · Apr 15, 2026</div>
+          </a>
+          <a href="/project-1/post?id=4" class="read-also-item">
+            <h4>Anti-money laundering regulations for SMEs</h4>
+            <div class="meta"><span class="cat">Compliance</span> · Apr 3, 2026</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="grid">
+        <div class="left">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
+            <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" style="height:clamp(3.2rem,4.8vw,5rem); width:auto;" />
+            <span class="logo-text">FINSOULS</span>
+          </div>
+         
+          <div class="address">
+            <p id="footerAddress1">Business Bay Dubai UAE</p>
+            <p><strong id="footerPhone">+971 52 449 4542</strong></p>
+            <p><a href="mailto:info@finsouls.com" style="color:rgba(255, 255, 255, 0.8);" id="footerEmail">info@finsouls.com</a></p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+          <div class="footer-links">
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy">Contacts &amp; Offices</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#terms-conditions">Terms &amp; Conditions</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#cookie-policy">Cookies Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy" class="active">Privacy Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#sitemap">Sitemap</a>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 FINSOULS | Planning &amp; Guidance. All Rights Reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // HEADER SCROLL
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 20) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // MOBILE MENU
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+      navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+      // REVEAL ON SCROLL
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(el => io.observe(el));
+
+      // SINGAPORE POPUP
+      const singaporePopup = document.getElementById('singaporePopup');
+      function showSingaporePopup() {
+        singaporePopup.classList.add('active');
+      }
+      function hideSingaporePopup() {
+        singaporePopup.classList.remove('active');
+      }
+      document.getElementById('singaporePopupClose').addEventListener('click', hideSingaporePopup);
+      document.getElementById('singaporePopupBtn').addEventListener('click', hideSingaporePopup);
+      singaporePopup.addEventListener('click', function(e) { if (e.target === this) hideSingaporePopup(); });
+
+      // REGION SELECTOR with Singapore popup
+      const FLAG_MAP = {
+        'Global': 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg',
+        'UAE': 'https://flagcdn.com/w40/ae.png',
+        'Pakistan': 'https://flagcdn.com/w40/pk.png',
+        'Portugal': 'https://flagcdn.com/w40/pt.png',
+        'Singapore': 'https://flagcdn.com/w40/sg.png'
+      };
+      function getFlag(region) { return FLAG_MAP[region] || FLAG_MAP['Global']; }
+
+      function setupRegionSelector(selectorId, selectedId, dropdownId, arrowId) {
+        const selector = document.getElementById(selectorId);
+        if (!selector) return;
+        const selected = document.getElementById(selectedId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+        const items = dropdown.querySelectorAll('.dropdown-item');
+
+        selected.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+          if (arrow) arrow.classList.toggle('open');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const label = this.dataset.label;
+            const flag = this.dataset.flag || getFlag(label);
+            
+            if (label === 'Singapore') {
+              showSingaporePopup();
+              const globalFlag = getFlag('Global');
+              selected.innerHTML = `<span class="flag-icon"><img src="${globalFlag}" alt="Global" /></span><span>Global</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+              document.getElementById(arrowId).classList.remove('open');
+              dropdown.classList.remove('open');
+              return;
+            }
+            
+            selected.innerHTML = `<span class="flag-icon"><img src="${flag}" alt="${label}" /></span><span>${label}</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+            document.getElementById(arrowId).classList.remove('open');
+            dropdown.classList.remove('open');
+            items.forEach(d => d.style.background = 'transparent');
+            this.style.background = 'rgba(122,81,81,0.15)';
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!selector.contains(e.target)) {
+            dropdown.classList.remove('open');
+            const arrowEl = document.getElementById(arrowId);
+            if (arrowEl) arrowEl.classList.remove('open');
+          }
+        });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+      }
+
+      setupRegionSelector('regionSelectorMobile', 'selectedRegionMobile', 'regionDropdownMobile', 'regionArrowMobile');
+      setupRegionSelector('regionSelectorDesktop', 'selectedRegionDesktop', 'regionDropdownDesktop', 'regionArrowDesktop');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Insights &amp; Blog — FINSOULS</title>
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="32x32" />
+  <link rel="icon" href="https://harisumer.me/project-1/finsoul-logof.svg" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://harisumer.me/project-1/finsoul-logof.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== FONTS ===== */
+    @font-face {
+      font-family: 'Versailles';
+      src: url('https://harisumer.me/project-1/jen-wagner-co-versailles-regular (1).ttf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Neue Montreal';
+      src: url('https://harisumer.me/project-1/NeueMontreal-Light.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ===== VARIABLES & RESETS ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary:#a37676;
+      --primary-dark:#570d29;
+      --dark:#0c102a;
+      --text:#fcfbfa;
+      --white:#fcfbfa;
+      --black:#0c102a;
+      --shadow:0 10px 25px rgba(0,0,0,0.4);
+      --slide-ease:cubic-bezier(0.25,0.46,0.45,0.94);
+      --color-border-dark:rgba(255,255,255,0.08);
+    }
+    html { font-size:62.5%; scroll-behavior:smooth; }
+    body {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+      letter-spacing:1px;
+      font-size:1.6rem;
+      line-height:1.75;
+      color:var(--text);
+      background:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; padding:0; margin:0; }
+    img { max-width:100%; display:block; height:auto; }
+    h1,h2,h3,h4,h5,h6 {
+      font-family:'Versailles',Georgia,'Times New Roman',serif;
+      font-weight:400;
+      color:var(--white);
+      line-height:1.2;
+    }
+    h1 { font-size:clamp(2.8rem,8vw,5.6rem); }
+    h2 { font-size:clamp(2.4rem,6vw,3.8rem); color:#fff; margin-bottom:35px !important; }
+    h3 { font-size:clamp(2rem,4vw,2.8rem); color:#c99aa3; }
+    p, .p, .paragraph, .text, .desc, .label, .stat .label, .faq-answer, .newsletter p, .footer .address p, .footer .bottom, .region-popup p {
+      font-family:'Neue Montreal','Inter',Arial,sans-serif;
+    }
+    p { margin-bottom:35px !important; }
+    .btn {
+      display:inline-block; padding:1.2rem 2.8rem;
+      background:rgba(163, 118, 118, 0.2);
+      border:1px solid rgba(122,81,81,0.25);
+      color:var(--white);
+      font-size:clamp(1.2rem,1.4vw,1.4rem);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.075em;
+      border-radius:8px;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%);
+      border-color:rgba(122,81,81,0.9);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      transform:scale(1.03);
+      color:var(--text);
+    }
+    .btn-arrow {
+      display:inline-flex; align-items:center; gap:0.8rem; padding:1rem 2.4rem 1rem 1.6rem;
+      color:var(--white); font-weight:500;
+      transition:all 0.3s ease;
+      background:rgba(163, 118, 118, 0.2);
+      border-radius:10px;
+      border:1px solid rgba(122,81,81,0.25);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-arrow::after { content:"→"; font-size:1.8rem; transition:all 0.3s ease; }
+    .btn-arrow:hover { gap:1.2rem; background: radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); color:var(--text); }
+    .btn-arrow-white { color:var(--white); }
+    .btn-arrow-white:hover { color:var(--text); }
+    .btn-arrow-white:hover::after { color:var(--text); }
+    .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:transparent;
+      transition:background 0.4s ease, box-shadow 0.3s ease;
+    }
+    .header.scrolled { background:var(--dark) !important; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
+    .header-main {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.8rem 2rem;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+    .logo-wrap {
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+      flex-shrink:0;
+    }
+    .logo-img { height:clamp(2.8rem,4vw,4.2rem); width:auto; }
+    .logo-text {
+      font-family:'Versailles',Georgia,serif;
+      font-size:clamp(2.4rem,4vw,3.6rem);
+      font-weight:400;
+      color:var(--white);
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      line-height:1;
+      transition:color 0.3s ease;
+    }
+    .logo-text span { color:var(--primary); }
+    .header.scrolled .logo-text { color:var(--white); }
+    .header.scrolled .logo-text span { color:var(--primary); }
+
+    .nav-menu {
+      display:flex;
+      align-items:center;
+      gap:clamp(1.2rem,2.5vw,2.4rem);
+      flex:1;
+      justify-content:center;
+      margin:0 2rem 0 11rem;
+    }
+    .nav-menu a {
+      font-size: clamp(1.4rem, 1.6vw, 1.8rem);
+      font-weight:500;
+      color:var(--white);
+      transition:color 0.25s ease, border-color 0.25s ease;
+      padding:0.4rem 0;
+      border-bottom:2px solid transparent;  
+      white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+    .right-group {
+      display:flex;
+      align-items:center;
+      gap:clamp(1rem,1.5vw,2rem);
+      flex-shrink:0;
+    }
+    .nav-menu .btn {
+      padding:0.6rem 1.6rem;
+      font-size:clamp(1rem,1.2vw,1.2rem);
+      color:var(--white);
+      white-space:nowrap;
+      border:1px solid rgba(122,81,81,0.2);
+      box-shadow:0 4px 15px rgba(0,0,0,0.2);
+      margin-left:0.4rem;
+    }
+    .nav-menu .btn:hover {
+      background:rgba(122,81,81,0.95);
+      box-shadow:0 0 30px rgba(122,81,81,0.5);
+      color:var(--text);
+      border-color:rgba(122,81,81,0.9);
+    }
+
+    .mobile-right-group {
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+    }
+
+    .region-selector { position:relative; display:inline-block; cursor:pointer; }
+    .region-selector .selected-region {
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.4rem 1rem 0.4rem 0.6rem;
+      border-radius:30px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:background 0.2s, border-color 0.2s;
+      font-size:clamp(1.1rem,1.2vw,1.3rem);
+      font-weight:500;
+      color:var(--white);
+      line-height:1.4;
+    }
+    .region-selector .selected-region:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); }
+    .region-selector .selected-region .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .region-selector .selected-region .flag-icon img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .region-selector .selected-region .arrow-down { font-size:1.2rem; opacity:0.6; transition:transform 0.25s ease; margin-left:0.2rem; }
+    .region-selector .selected-region .arrow-down.open { transform:rotate(180deg); }
+    .region-selector .dropdown-list {
+      position:absolute; top:calc(100% + 8px); right:0; min-width:200px;
+      background:rgba(23,28,48,0.96); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.6);
+      padding:0.6rem 0; opacity:0; visibility:hidden;
+      transform:translateY(-6px); transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index:1200; backdrop-filter:blur(8px);
+    }
+    .region-selector .dropdown-list.open { opacity:1; visibility:visible; transform:translateY(0); }
+    .region-selector .dropdown-item {
+      display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1.4rem;
+      color:var(--white); font-size:clamp(1.2rem,1.3vw,1.4rem);
+      transition:background 0.15s; cursor:pointer; border:none;
+      background:transparent; width:100%; text-align:left; font-family:inherit;
+    }
+    .region-selector .dropdown-item:hover { background:rgba(122,81,81,0.15); color:var(--primary); }
+    .region-selector .dropdown-item .flag-icon { width:20px; height:20px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+    .region-selector .dropdown-item .flag-icon img { width:100%; height:100%; object-fit:cover; }
+
+    .hamburger { display:none; flex-direction:column; gap:0.4rem; cursor:pointer; padding:0.4rem; background:none; border:none; }
+    .hamburger span { display:block; width:2.8rem; height:2px; background:var(--white); transition:all 0.3s ease; }
+
+    @media (max-width:1024px) {
+      .nav-menu {
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:var(--dark);
+        padding:2rem;
+        box-shadow:var(--shadow);
+        gap:1.2rem;
+        border-top:1px solid rgba(255,255,255,0.05);
+        align-items:stretch;
+        margin:0;
+      }
+      .nav-menu.open { display:flex; }
+      .hamburger { display:flex; }
+      .nav-menu a {
+        color:var(--white) !important;
+        white-space:normal;
+        padding:0.8rem 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+        text-align:center;
+      }
+      .nav-menu a:hover { color:var(--primary) !important; border-bottom-color:var(--primary) !important; }
+      .nav-menu .btn { width:100%; text-align:center; }
+      .nav-menu .region-selector { display:none !important; }
+      .header-main .region-selector { display:inline-block; }
+      .right-group { display:none; }
+    }
+    @media (min-width:1025px) {
+      #regionSelectorMobile { display:none !important; }
+      .nav-menu .region-selector { display:inline-block !important; }
+      .mobile-right-group .region-selector { display:none !important; }
+    }
+
+    /* ===== Singapore Coming Soon Popup ===== */
+    .singapore-popup-overlay {
+      position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.5s ease;
+    }
+    .singapore-popup-overlay.active { opacity:1; pointer-events:auto; }
+    .singapore-popup {
+      background:var(--dark); border:1px solid var(--color-border-dark); border-radius:20px; padding:3.2rem 2.8rem; max-width:420px; width:92%; box-shadow:0 25px 50px rgba(0,0,0,0.8); transform:scale(0.95) translateY(20px); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease; opacity:0; text-align:center; position:relative;
+    }
+    .singapore-popup-overlay.active .singapore-popup { transform:scale(1) translateY(0); opacity:1; }
+    .singapore-popup h2 { font-family:'Versailles',Georgia,serif; font-size:clamp(2.2rem,3.5vw,3rem); font-weight:400; color:var(--text); margin:0 0 0.2rem 0; }
+    .singapore-popup .popup-sub { font-family:'Neue Montreal','Inter',Arial,sans-serif; font-size:clamp(1.3rem,1.6vw,1.6rem); color:rgba(252,251,250,0.65); margin-top:0.4rem; margin-bottom:1.6rem; }
+    .singapore-popup .popup-close-x { position:absolute; top:1.2rem; right:1.6rem; background:transparent; border:none; color:rgba(255,255,255,0.4); font-size:2.4rem; cursor:pointer; transition:color 0.2s, transform 0.2s; font-family:inherit; line-height:1; padding:0.4rem; z-index:10; }
+    .singapore-popup .popup-close-x:hover { color:var(--white); transform:rotate(90deg); }
+    .singapore-popup .popup-btn { margin-top:1.6rem; display:inline-block; padding:0.8rem 2.4rem; background:rgba(163, 118, 118, 0.2); border:1px solid rgba(122,81,81,0.25); border-radius:8px; color:var(--white); font-size:1.4rem; cursor:pointer; transition:all 0.3s ease; }
+    .singapore-popup .popup-btn:hover { background:rgba(122,81,81,0.95); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding:clamp(2rem,5vh,5rem) 0;
+      color:rgba(255,255,255,0.8);
+      background:var(--dark);
+      position:relative;
+      z-index:10;
+    }
+    .footer .container { max-width:1200px; margin:0 auto; padding:0 2rem; width:100%; }
+    .footer .grid { display:grid; grid-template-columns:1fr 2fr; gap:clamp(2rem,4vw,4rem); margin-bottom:3rem; }
+    .footer .logo-text { font-family:'Versailles',Georgia,serif; font-size:clamp(2.4rem,4vw,3.6rem); font-weight:400; color:var(--white); letter-spacing:0.1em; text-transform:uppercase; }
+    .footer .logo-text span { color:var(--primary); }
+    .footer .address p { font-size:clamp(1.2rem,1.4vw,1.4rem); margin-bottom:0.4rem !important; color:rgba(255,255,255,0.8); }
+    .footer .address a { color:var(--primary); }
+    .footer .right { display:flex; flex-direction:column; align-items:flex-end; gap:2rem; }
+    .footer .social-links { display:flex; gap:1.2rem; }
+    .footer .social-links a { font-size:clamp(1.8rem,2.2vw,2.2rem); padding:0.4rem; transition:all 0.3s ease; color:rgba(255,255,255,0.7); }
+    .footer .social-links a:hover { color:var(--primary); }
+    .footer .footer-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:1rem 2.5rem; font-size:clamp(1rem,1.2vw,1.2rem); }
+    .footer .footer-links a { transition:all 0.3s ease; color:rgba(255,255,255,0.6); }
+    .footer .footer-links a:hover, .footer .footer-links a.active { color:var(--white); }
+    .footer .bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:clamp(1rem,1.2vw,1.2rem); color:rgba(255,255,255,0.5); }
+    @media (max-width:768px) {
+      .footer .grid { grid-template-columns:1fr; gap:2rem; }
+      .footer .right { align-items:flex-start; }
+      .footer .footer-links { justify-content:flex-start; }
+      .footer .bottom { flex-direction:column; align-items:flex-start; }
+    }
+
+    /* ===== INSIGHTS PAGE SPECIFIC ===== */
+    .insights-section {
+      padding: 16rem 0 8rem;
+      background: var(--dark);
+    }
+    .insights-header-row {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+    }
+    .insights-header-col-left { flex: 1; min-width:280px; }
+    .insights-header-col-left h2 { font-size: clamp(2.8rem,4vw,4.2rem); font-family:'Versailles',Georgia,serif; color:var(--white); margin-bottom:1.2rem; }
+    .insights-header-col-left h2 span { color:var(--primary); }
+    .insights-header-col-left p { color:rgba(252,251,250,0.62); font-size:1.6rem; max-width:600px; margin:0; }
+    .insights-header-col-right {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .filter-group { display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; }
+    .filter-group label { font-size:1.2rem; color:rgba(252,251,250,0.62); font-weight:500; letter-spacing:0.05em; text-transform:uppercase; }
+
+    /* === NEW: FILTER SELECTOR styled exactly like region selector === */
+    .filter-selector {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .filter-selector .selected-filter {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1rem 0.4rem 0.6rem;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, border-color 0.2s;
+      font-size: clamp(1.1rem,1.2vw,1.3rem);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .filter-selector .selected-filter:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .filter-selector .selected-filter .filter-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .filter-selector .selected-filter .filter-label {
+      white-space: nowrap;
+    }
+    .filter-selector .selected-filter .arrow-down {
+      font-size: 1.2rem;
+      opacity: 0.6;
+      transition: transform 0.25s ease;
+      margin-left: 0.2rem;
+    }
+    .filter-selector .selected-filter .arrow-down.open {
+      transform: rotate(180deg);
+    }
+    .filter-selector .dropdown-list {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 160px;
+      background: rgba(23,28,48,0.96);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      padding: 0.6rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index: 1200;
+      backdrop-filter: blur(8px);
+    }
+    .filter-selector .dropdown-list.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .filter-selector .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 1.4rem;
+      color: var(--white);
+      font-size: clamp(1.2rem,1.3vw,1.4rem);
+      transition: background 0.15s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .filter-selector .dropdown-item:hover {
+      background: rgba(122,81,81,0.15);
+      color: var(--primary);
+    }
+    .filter-selector .dropdown-item .item-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* remove old filter-select */
+    .filter-select {
+      display: none !important;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+    .blog-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.4s var(--slide-ease);
+      transform: translateY(0);
+    }
+    .blog-card:hover { transform: translateY(-8px); border-color:rgba(122,81,81,0.3); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
+    .blog-card__image { height:200px; overflow:hidden; background:#1a1a1a; }
+    .blog-card__image img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s var(--slide-ease); }
+    .blog-card:hover .blog-card__image img { transform:scale(1.05); }
+    .blog-card__content { padding:2rem 2rem 2.4rem; }
+    .blog-card__meta { display:flex; gap:1.2rem; font-size:1.2rem; color:rgba(252,251,250,0.4); margin-bottom:0.8rem; flex-wrap:wrap; letter-spacing:1px; }
+    .blog-card__meta .category { color:var(--primary); font-weight:500; }
+    .blog-card__title { font-size:1.8rem; font-weight:500; line-height:1.3; margin-bottom:0.6rem; transition:color 0.3s; font-family:'Versailles',Georgia,serif; color:var(--white); }
+    .blog-card:hover .blog-card__title { color:var(--primary); }
+    .blog-card__excerpt { color:rgba(252,251,250,0.62); font-size:1.4rem; line-height:1.6; margin-bottom:1.2rem; }
+    .blog-card__link { display:inline-flex; align-items:center; gap:0.6rem; color:var(--primary); font-weight:500; font-size:1.3rem; transition:gap 0.3s; }
+    .blog-card__link::after { content:'→'; transition:transform 0.3s; }
+    .blog-card__link:hover { gap:1rem; }
+    .blog-card__link:hover::after { transform:translateX(4px); }
+
+    .blog-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: rgba(255,255,255,0.05);
+    }
+    .blog-card.featured .blog-card__image { height:100%; min-height:280px; }
+    .blog-card.featured .blog-card__content { padding:2.8rem; display:flex; flex-direction:column; justify-content:center; }
+    .blog-card.featured .blog-card__title { font-size:2.4rem; }
+    @media (max-width:768px) {
+      .blog-card.featured { grid-template-columns:1fr; }
+      .blog-card.featured .blog-card__image { height:200px; min-height:auto; }
+      .blog-grid { grid-template-columns:1fr; }
+      .insights-header-row { flex-direction:column; align-items:stretch; gap:2rem; }
+      .insights-header-col-right { justify-content:flex-start; }
+    }
+
+    .cta{
+      position:relative;
+      z-index:1;
+      padding:11rem 0;
+      text-align:center;
+      background:var(--dark);
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+    .cta h2{ font-size:clamp(3rem,5vw,3.2rem); max-width:1000px; margin:0 auto 3.2rem; font-family:'Versailles',Georgia,serif; color:var(--white); }
+    .cta h2 em{ color:var(--primary); font-style:italic; font-weight:300; }
+    .cta .btn-gold{ font-size:1.4rem; padding:1.5rem 3.4rem; background:rgba(163,118,118,0.2); border:1px solid rgba(122,81,81,0.25); color:var(--white); border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
+    .cta .btn-gold:hover{ background:radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); box-shadow:0 0 30px rgba(122,81,81,0.5); transform:scale(1.03); color:var(--text); }
+
+    .no-results { text-align:center; padding:4rem 0; color:rgba(252,251,250,0.62); font-size:1.6rem; grid-column:1/-1; }
+
+    /* REVEAL */
+    .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.8s var(--slide-ease), transform 0.8s var(--slide-ease); }
+    .reveal.in{ opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; transition:none !important; } }
+
+    .btn-gold{ display:inline-flex; align-items:center; gap:0.9rem; padding:1.2rem 2.6rem; background:rgba(163,118,118,0.2); border:1px solid rgba(122,81,81,0.25); color:var(--text); font-size:1.3rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; border-radius:10px; cursor:pointer; transition:all 0.35s var(--slide-ease); }
+    .btn-gold::after{ content:'→'; font-size:1.6rem; transition:transform 0.35s var(--slide-ease); }
+    .btn-gold:hover{ background:radial-gradient(circle at 0% 0%, #a37676 0%, #a37676 40%, transparent 80%); border-color:rgba(122,81,81,0.9); color:var(--text); box-shadow:0 0 30px rgba(122,81,81,0.5); }
+    .btn-gold:hover::after{ transform:translateX(4px); }
+
+    /* Mobile */
+    @media (max-width:480px) {
+      .insights-section { padding:10rem 0 4rem; }
+      .insights-header-col-left h2 { font-size:2.8rem; }
+      .insights-header-col-left p { font-size:1.4rem; }
+      .insights-header-col-right { flex-direction:column; align-items:stretch; gap:0.8rem; }
+      .filter-group { justify-content:space-between; }
+      .filter-select { min-width:100px; flex:1; }
+      .blog-card.featured .blog-card__title { font-size:2rem; }
+      .blog-card__content { padding:1.5rem; }
+      .cta { padding:6rem 0; }
+      .cta h2 { font-size:2.4rem; }
+      .header-main { padding:0.6rem 1.2rem; }
+      .logo-img { height:2.8rem !important; }
+      .logo-text { font-size:2rem !important; }
+      .footer .grid { text-align:center; }
+      .footer .right { align-items:center; }
+      .footer .footer-links { justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Singapore Coming Soon Popup -->
+  <div class="singapore-popup-overlay" id="singaporePopup">
+    <div class="singapore-popup">
+      <button class="popup-close-x" id="singaporePopupClose" aria-label="Close">✕</button>
+      <h2 style="margin-top:10px;">Singapore is coming soon. Stay tuned for our launch!</h2>
+      <button class="popup-btn" id="singaporePopupBtn">Got it</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-main">
+      <a href="#" class="logo-wrap" id="logoLink">
+        <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" class="logo-img" />
+        <span class="logo-text">FINSOULS</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="https://harisumer.me/project-1/">Home</a>
+        <a href="/project-1/about">About us</a>
+        <a href="/project-1/finsouls-services">Services</a>
+        <a href="#" class="active">Insights</a>
+        <a href="/project-1/contact">Contact</a>
+      </nav>
+
+      <div class="right-group">
+        <div class="region-selector" id="regionSelectorDesktop">
+          <div class="selected-region" id="selectedRegionDesktop">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowDesktop">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownDesktop">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <a href="#" class="btn">Book a Consultant</a>
+      </div>
+
+      <div class="mobile-right-group">
+        <div class="region-selector" id="regionSelectorMobile">
+          <div class="selected-region" id="selectedRegionMobile">
+            <span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span>
+            <span>Global</span>
+            <span class="arrow-down" id="regionArrowMobile">▾</span>
+          </div>
+          <div class="dropdown-list" id="regionDropdownMobile">
+            <button class="dropdown-item" data-flag="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" data-label="Global"><span class="flag-icon"><img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" alt="Global" /></span> Global</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/ae.png" data-label="UAE"><span class="flag-icon"><img src="https://flagcdn.com/w40/ae.png" alt="UAE" /></span> UAE</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pk.png" data-label="Pakistan"><span class="flag-icon"><img src="https://flagcdn.com/w40/pk.png" alt="Pakistan" /></span> Pakistan</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/pt.png" data-label="Portugal"><span class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Portugal" /></span> Portugal</button>
+            <button class="dropdown-item" data-flag="https://flagcdn.com/w40/sg.png" data-label="Singapore"><span class="flag-icon"><img src="https://flagcdn.com/w40/sg.png" alt="Singapore" /></span> Singapore</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- INSIGHTS -->
+  <section class="insights-section" id="insightsSection">
+    <div class="container">
+      <div class="insights-header-row reveal">
+        <div class="insights-header-col-left">
+          <h2>Latest insights</h2>
+          <p>Stay ahead with our latest articles, guides, and thought leadership on finance, accounting, VAT, and financial strategy — curated for business leaders.</p>
+        </div>
+        <div class="insights-header-col-right">
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <label for="categoryFilter">Category</label>
+            <div class="filter-selector" id="categorySelector">
+              <div class="selected-filter" id="selectedCategory">
+                <span class="filter-icon"></span>
+                <span class="filter-label">All</span>
+                <span class="arrow-down" id="categoryArrow">▾</span>
+              </div>
+              <div class="dropdown-list" id="categoryDropdown">
+                <button class="dropdown-item" data-value="all"><span class="item-icon"></span> All</button>
+                <button class="dropdown-item" data-value="vat"><span class="item-icon"></span> VAT &amp; Tax</button>
+                <button class="dropdown-item" data-value="accounting"><span class="item-icon"></span> Accounting</button>
+                <button class="dropdown-item" data-value="strategy"><span class="item-icon"></span> Strategy</button>
+                <button class="dropdown-item" data-value="compliance"><span class="item-icon"></span> Compliance</button>
+                <button class="dropdown-item" data-value="banking"><span class="item-icon"></span> Banking</button>
+                <button class="dropdown-item" data-value="residency"><span class="item-icon"></span> Residency</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Region Filter -->
+          <div class="filter-group">
+            <label for="regionFilter">Region</label>
+            <div class="filter-selector" id="regionFilterSelector">
+              <div class="selected-filter" id="selectedRegionFilter">
+                <span class="filter-icon"></span>
+                <span class="filter-label">All Regions</span>
+                <span class="arrow-down" id="regionFilterArrow">▾</span>
+              </div>
+              <div class="dropdown-list" id="regionFilterDropdown">
+                <button class="dropdown-item" data-value="all"><span class="item-icon"></span> All Regions</button>
+                <button class="dropdown-item" data-value="uae"><span class="item-icon"></span> UAE</button>
+                <button class="dropdown-item" data-value="pakistan"><span class="item-icon"></span> Pakistan</button>
+                <button class="dropdown-item" data-value="portugal"><span class="item-icon"></span> Portugal</button>
+                <button class="dropdown-item" data-value="singapore"><span class="item-icon"></span> Singapore</button>
+                <button class="dropdown-item" data-value="global"><span class="item-icon"></span> Global</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date Filter -->
+          <div class="filter-group">
+            <label for="dateFilter">Date</label>
+            <div class="filter-selector" id="dateSelector">
+              <div class="selected-filter" id="selectedDate">
+                <span class="filter-icon"></span>
+                <span class="filter-label">All</span>
+                <span class="arrow-down" id="dateArrow">▾</span>
+              </div>
+              <div class="dropdown-list" id="dateDropdown">
+                <button class="dropdown-item" data-value="all"><span class="item-icon"></span> All</button>
+                <button class="dropdown-item" data-value="latest"><span class="item-icon"></span> Latest</button>
+                <button class="dropdown-item" data-value="2026"><span class="item-icon">2026</span> 2026</button>
+                <button class="dropdown-item" data-value="2025"><span class="item-icon">2025</span> 2025</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-grid" id="blogGrid">
+        <!-- Cards will be rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <h2 class="reveal">Stay updated with our latest insights</h2>
+      <a href="#" class="btn-gold reveal">Subscribe to Newsletter</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="grid">
+        <div class="left">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.4rem;">
+            <img src="https://harisumer.me/project-1/finsoul-logof.svg" alt="Finsouls logo" style="height:clamp(3.2rem,4.8vw,5rem); width:auto;" />
+            <span class="logo-text">FINSOULS</span>
+          </div>
+          
+          <div class="address">
+            <p id="footerAddress1">Business Bay Dubai UAE</p>
+            <p><strong id="footerPhone">+971 52 449 4542</strong></p>
+            <p><a href="mailto:info@finsouls.com" style="color:rgba(255, 255, 255, 0.8);;" id="footerEmail">info@finsouls.com</a></p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+          <div class="footer-links">
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy">Contacts &amp; Offices</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#terms-conditions">Terms &amp; Conditions</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#cookie-policy">Cookies Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#privacy-policy" class="active">Privacy Policy</a>
+            <a href="https://harisumer.me/project-1/privacy-policy#sitemap">Sitemap</a>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© 2026 FINSOULS | Planning &amp; Guidance. All Rights Reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // HEADER SCROLL
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 20) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      // MOBILE MENU
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+      navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+      // REVEAL ON SCROLL
+      const reveals = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(el => io.observe(el));
+
+      // SINGAPORE POPUP
+      const singaporePopup = document.getElementById('singaporePopup');
+      function showSingaporePopup() {
+        singaporePopup.classList.add('active');
+      }
+      function hideSingaporePopup() {
+        singaporePopup.classList.remove('active');
+      }
+      document.getElementById('singaporePopupClose').addEventListener('click', hideSingaporePopup);
+      document.getElementById('singaporePopupBtn').addEventListener('click', hideSingaporePopup);
+      singaporePopup.addEventListener('click', function(e) { if (e.target === this) hideSingaporePopup(); });
+
+      // REGION SELECTOR with Singapore popup
+      const FLAG_MAP = {
+        'Global': 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg',
+        'UAE': 'https://flagcdn.com/w40/ae.png',
+        'Pakistan': 'https://flagcdn.com/w40/pk.png',
+        'Portugal': 'https://flagcdn.com/w40/pt.png',
+        'Singapore': 'https://flagcdn.com/w40/sg.png'
+      };
+      function getFlag(region) { return FLAG_MAP[region] || FLAG_MAP['Global']; }
+
+      function setupRegionSelector(selectorId, selectedId, dropdownId, arrowId) {
+        const selector = document.getElementById(selectorId);
+        if (!selector) return;
+        const selected = document.getElementById(selectedId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+        const items = dropdown.querySelectorAll('.dropdown-item');
+
+        selected.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+          if (arrow) arrow.classList.toggle('open');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const label = this.dataset.label;
+            const flag = this.dataset.flag || getFlag(label);
+            
+            if (label === 'Singapore') {
+              showSingaporePopup();
+              const globalFlag = getFlag('Global');
+              selected.innerHTML = `<span class="flag-icon"><img src="${globalFlag}" alt="Global" /></span><span>Global</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+              document.getElementById(arrowId).classList.remove('open');
+              dropdown.classList.remove('open');
+              return;
+            }
+            
+            selected.innerHTML = `<span class="flag-icon"><img src="${flag}" alt="${label}" /></span><span>${label}</span><span class="arrow-down" id="${arrowId}">▾</span>`;
+            document.getElementById(arrowId).classList.remove('open');
+            dropdown.classList.remove('open');
+            items.forEach(d => d.style.background = 'transparent');
+            this.style.background = 'rgba(122,81,81,0.15)';
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!selector.contains(e.target)) {
+            dropdown.classList.remove('open');
+            const arrowEl = document.getElementById(arrowId);
+            if (arrowEl) arrowEl.classList.remove('open');
+          }
+        });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+      }
+
+      setupRegionSelector('regionSelectorMobile', 'selectedRegionMobile', 'regionDropdownMobile', 'regionArrowMobile');
+      setupRegionSelector('regionSelectorDesktop', 'selectedRegionDesktop', 'regionDropdownDesktop', 'regionArrowDesktop');
+
+      // ----- HELPER: setup filter selectors (category, region, date) -----
+      function setupFilterSelector(selectorId, selectedId, dropdownId, arrowId, onChange) {
+        const selector = document.getElementById(selectorId);
+        if (!selector) return;
+        const selected = document.getElementById(selectedId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+        const items = dropdown.querySelectorAll('.dropdown-item');
+
+        // set initial label
+        const labelSpan = selected.querySelector('.filter-label');
+        const iconSpan = selected.querySelector('.filter-icon');
+        const initialItem = dropdown.querySelector('.dropdown-item[data-value="all"]');
+        if (initialItem) {
+          const icon = initialItem.querySelector('.item-icon');
+          if (icon && iconSpan) iconSpan.textContent = icon.textContent;
+          if (labelSpan) labelSpan.textContent = 'All';
+        }
+
+        selected.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+          if (arrow) arrow.classList.toggle('open');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const value = this.dataset.value;
+            const label = this.textContent.trim();
+            const icon = this.querySelector('.item-icon');
+            if (icon && iconSpan) iconSpan.textContent = icon.textContent;
+            if (labelSpan) labelSpan.textContent = label;
+            dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+            items.forEach(d => d.style.background = 'transparent');
+            this.style.background = 'rgba(122,81,81,0.15)';
+            if (onChange) onChange(value);
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!selector.contains(e.target)) {
+            dropdown.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+          }
+        });
+        dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+      }
+
+      // ----- BLOG DATA -----
+      const posts = [
+        {
+          id:1,
+          title: "How to build a resilient financial strategy in 2026",
+          excerpt: "Discover the key pillars of a modern financial strategy that adapts to market volatility and regulatory changes.",
+          category: "strategy",
+          region: "global",
+          date: "2026-05-12",
+          image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: true,
+          readTime: "6 min read"
+        },
+        {
+          id:2,
+          title: "UAE VAT: What businesses need to know for Q2 2026",
+          excerpt: "Stay compliant with the latest VAT regulations in the UAE. Key updates and filing deadlines explained.",
+          category: "vat",
+          region: "uae",
+          date: "2026-04-28",
+          image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "4 min read"
+        },
+        {
+          id:3,
+          title: "Automating bookkeeping: Tools that save time and money",
+          excerpt: "Explore the best automation tools for bookkeeping and how they can transform your accounting workflows.",
+          category: "accounting",
+          region: "global",
+          date: "2026-04-15",
+          image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "5 min read"
+        },
+        {
+          id:4,
+          title: "Anti-money laundering regulations: A guide for SMEs",
+          excerpt: "Understand AML compliance requirements and how to implement effective controls in your business.",
+          category: "compliance",
+          region: "global",
+          date: "2026-04-03",
+          image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "3 min read"
+        },
+        {
+          id:5,
+          title: "Financial forecasting for startups: A practical approach",
+          excerpt: "Learn how to build realistic financial forecasts that help your startup attract investors and plan for growth.",
+          category: "strategy",
+          region: "global",
+          date: "2026-03-20",
+          image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "7 min read"
+        },
+        {
+          id:6,
+          title: "Corporate tax in the UAE: What you need to know",
+          excerpt: "A comprehensive overview of the new corporate tax regime in the UAE and how it impacts your business.",
+          category: "vat",
+          region: "uae",
+          date: "2026-03-05",
+          image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "4 min read"
+        },
+        {
+          id:7,
+          title: "Pakistan Taxation: FBR compliance made simple",
+          excerpt: "Navigate Pakistani tax with confidence. Filing, notices, and record-keeping for businesses and individuals.",
+          category: "vat",
+          region: "pakistan",
+          date: "2026-02-18",
+          image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "5 min read"
+        },
+        {
+          id:8,
+          title: "Portugal Golden Visa: What investors need to know",
+          excerpt: "A clear guide to the Golden Visa, D7, and NHR pathways for Gulf investors and families moving to Portugal.",
+          category: "residency",
+          region: "portugal",
+          date: "2026-02-01",
+          image: "https://images.unsplash.com/photo-1563897539633-eb4e2f763701?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "6 min read"
+        },
+        {
+          id:9,
+          title: "Banking in the UAE: How to open a corporate account",
+          excerpt: "Practical advice on preparing your file and navigating bank requirements for a smooth account opening.",
+          category: "banking",
+          region: "uae",
+          date: "2026-01-22",
+          image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "4 min read"
+        },
+        {
+          id:10,
+          title: "Singapore expansion: What to expect in 2026",
+          excerpt: "Insights on market entry, company formation, and banking for businesses looking at Singapore.",
+          category: "strategy",
+          region: "singapore",
+          date: "2026-01-10",
+          image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "5 min read"
+        },
+        {
+          id:11,
+          title: "Audit readiness: Preparing for your first statutory audit",
+          excerpt: "Steps to ensure your records and controls are audit-ready, whether in the UAE, Pakistan, or Portugal.",
+          category: "accounting",
+          region: "global",
+          date: "2025-12-15",
+          image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "6 min read"
+        },
+        {
+          id:12,
+          title: "Business setup in Portugal: From NIF to first invoice",
+          excerpt: "A step-by-step guide to forming an LDA, obtaining tax numbers, and opening a bank account in Portugal.",
+          category: "residency",
+          region: "portugal",
+          date: "2025-11-28",
+          image: "https://images.unsplash.com/photo-1563897539633-eb4e2f763701?w=600&h=400&fit=crop&crop=center&auto=format",
+          featured: false,
+          readTime: "7 min read"
+        }
+      ];
+
+      // ----- RENDER & FILTER -----
+      const grid = document.getElementById('blogGrid');
+
+      let currentCategory = 'all';
+      let currentRegion = 'all';
+      let currentDate = 'all';
+
+      function renderPosts() {
+        const category = currentCategory;
+        const region = currentRegion;
+        const date = currentDate;
+
+        let filtered = posts.filter(p => {
+          if (category !== 'all' && p.category !== category) return false;
+          if (region !== 'all' && p.region !== region) return false;
+          if (date === 'latest') {
+            const sorted = [...posts].sort((a,b) => new Date(b.date) - new Date(a.date));
+            return sorted.slice(0,6).includes(p);
+          }
+          if (date !== 'all') {
+            const year = p.date.substring(0,4);
+            if (year !== date) return false;
+          }
+          return true;
+        });
+
+        if (date !== 'latest') {
+          filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="no-results">No posts match your filters.</div>`;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((post) => {
+          const featuredClass = post.featured ? 'featured' : '';
+          const dateFormatted = new Date(post.date).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+          const postLink = `/project-1/post?id=${post.id}`;
+          html += `
+            <article class="blog-card ${featuredClass} reveal" data-category="${post.category}" data-region="${post.region}" data-date="${post.date}">
+              <div class="blog-card__image">
+                <img src="${post.image}" alt="${post.title}" loading="lazy" />
+              </div>
+              <div class="blog-card__content">
+                <div class="blog-card__meta">
+                  <span class="category">${post.category.charAt(0).toUpperCase()+post.category.slice(1)}</span>
+                  <span>${dateFormatted}</span>
+                  <span>${post.readTime}</span>
+                  <span>${post.region.toUpperCase()}</span>
+                </div>
+                <h3 class="blog-card__title">${post.title}</h3>
+                <p class="blog-card__excerpt">${post.excerpt}</p>
+                <a href="${postLink}" class="blog-card__link">Read more</a>
+              </div>
+            </article>
+          `;
+        });
+        grid.innerHTML = html;
+
+        const newReveals = grid.querySelectorAll('.reveal');
+        newReveals.forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add('in');
+          } else {
+            io.observe(el);
+          }
+        });
+      }
+
+      // setup filter selectors
+      setupFilterSelector('categorySelector', 'selectedCategory', 'categoryDropdown', 'categoryArrow', function(val) {
+        currentCategory = val;
+        renderPosts();
+      });
+
+      setupFilterSelector('regionFilterSelector', 'selectedRegionFilter', 'regionFilterDropdown', 'regionFilterArrow', function(val) {
+        currentRegion = val;
+        renderPosts();
+      });
+
+      setupFilterSelector('dateSelector', 'selectedDate', 'dateDropdown', 'dateArrow', function(val) {
+        currentDate = val;
+        renderPosts();
+      });
+
+      // initial render
+      renderPosts();
+    })();
+  </script>
+</body>
+</html>
